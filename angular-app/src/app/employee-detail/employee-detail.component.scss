@@ -1,0 +1,80 @@
+@import '~@angular/material/theming';
+
+@mixin info-container {
+    @include mat-elevation(2);
+    width: 90%;
+    border-radius: .5em;
+    background-color: #fff;
+    margin-top: 1em;
+
+    transition: width 600ms cubic-bezier(0.4, 0.0, 0.2, 1),height 300ms cubic-bezier(0.4, 0.0, 0.2, 1) 600ms;
+}
+
+.employee-info {
+    @include info-container;
+    
+    &.main {
+        height: 200px;
+    }
+    &.sub {
+        height: 150px;
+        padding: 1em 0 !important;
+    }
+}
+
+.employee-info>div {
+    height: calc(100% - 3em);
+}
+
+.employee-name {
+    font-size: 2em;
+    letter-spacing: .15em;
+    top: 40%;
+}
+.unit-name {
+    top: calc(40% + 2.25em);
+}
+.group-name {
+    top: calc(40% + 3.75em);
+}
+.position-name {
+    top: calc(40% + 5.25em);
+}
+
+.profile-pic {
+
+    top: 50%;
+    left: 50%;
+
+    &>mat-icon {
+        font-size: 3em;
+    }
+}
+
+.meeting-info {
+    @include info-container;
+    height: 100px;
+    overflow: hidden;
+}
+
+.content-abstract {
+    height: 4em;
+    overflow: hidden;
+}
+
+.date-container {
+    color: white;
+    height: 100%;
+    width: 100%;
+    border-top-left-radius: 0.5em;
+    border-bottom-left-radius: 0.5em;
+
+    &>.date {
+        font-size: 2em;
+        font-weight: bold;
+    }
+    &>.month-year {
+        font-size: .8em;
+    }
+}
+

@@ -1,0 +1,126 @@
+$color-1: #fbb688;
+$color-2: #83c0d7;
+$color-3: #62c5d7;
+$color-4: #bf9eca;
+$color-5: #faa993;
+
+$color-gradient-1: linear-gradient(to right, #f8d276, #fbb688);
+$color-gradient-2: linear-gradient(to right, #a0a3d1, #83c0d7);
+$color-gradient-3: linear-gradient(to right, #66d1ae, #62c5d7);
+$color-gradient-4: linear-gradient(to right, #ab99ce, #bf9eca);
+$color-gradient-5: linear-gradient(to right, #f88b8b, #faa993);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-sort-header-button {
+    outline: 0 !important;
+}
+
+mat-icon {
+    vertical-align: middle;
+    user-select: none;
+}
+
+// .mat-drawer {
+//     background-color: #fafafa !important;    
+// }
+
+// .mat-drawer-side {
+//     border-right: none !important;
+// }
+
+#group {
+    height: 100%; // Whole group height.
+  
+    ::ng-deep .mat-tab-body-wrapper {
+      height: 100%; // Tabs body height. I also don't like ng-deep, but there is no other way :(
+    }
+  
+    .tab-content-container {
+      height: 100%;  // Content height.
+    }
+  }
+
+
+
+.additional-info {
+    color: grey;
+    font-size: .8em;
+
+    &>mat-icon {
+        font-size: 2em;
+    }
+}
+
+mat-icon{
+    &.icon-2x {
+        transform: scale(2.5);
+    }
+
+    &.color-1 {
+        color: $color-1;
+    }
+    &.color-2 {
+        color: $color-2;
+    }
+    &.color-3 {
+        color: $color-3;
+    }
+    &.color-4 {
+        color: $color-4;
+    }
+    &.color-5 {
+        color: $color-5;
+    }
+}
+
+.chips-bar {
+    height: 3em !important;
+}
+
+mat-chip {
+    &.color-1 {
+        background-image: $color-gradient-1;
+    }
+    &.color-2 {
+        background-image: $color-gradient-2;
+    }
+    &.color-3 {
+        background-image: $color-gradient-3;
+    }
+    &.color-4 {
+        background-image: $color-gradient-4;
+    }
+    &.color-5 {
+        background-image: $color-gradient-5;
+    }
+}
+
+.disable-select {
+    user-select: none;
+}
+
+.bottom-right-fab {
+    position: fixed !important;
+    right: 1em;
+    bottom: 1em;
+}
+
+div {
+    &.color-1 {
+        background-image: $color-gradient-1;
+    }
+    &.color-2 {
+        background-image: $color-gradient-2;
+    }
+    &.color-3 {
+        background-image: $color-gradient-3;
+    }
+    &.color-4 {
+        background-image: $color-gradient-4;
+    }
+    &.color-5 {
+        background-image: $color-gradient-5;
+    }
+}

@@ -1,0 +1,64 @@
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+@function my-mat-light-theme-foreground($color) {
+    @return (
+        base:              $color, 
+        divider:           $black-12-opacity,
+        dividers:          $black-12-opacity,
+        disabled:          rgba($color, 0.38),
+        disabled-button:   rgba($color, 0.38),
+        disabled-text:     rgba($color, 0.38),
+        hint-text:         rgba($color, 0.38),
+        secondary-text:    rgba($color, 0.54),
+        icon:              rgba($color, 0.54),
+        icons:             rgba($color, 0.54),
+        text:              rgba($color, 0.87),
+        slider-off:        rgba($color, 0.26),
+        slider-off-active: rgba($color, 0.38),
+    );
+};
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$candy-app-primary: mat-palette($mat-light-blue);
+$candy-app-accent:  mat-palette($mat-blue, A200, A100, A400);
+$candy-app-warn: mat-palette($mat-red);
+$candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+$candy-foreground: my-mat-light-theme-foreground(black);
+
+$candy-app-theme-custom: map-merge($candy-app-theme, (foreground: $candy-foreground));
+
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($candy-app-theme-custom);
+
+// Define an alternate dark theme.
+$dark-primary: mat-palette($mat-amber);
+$dark-accent:  mat-palette($mat-teal, A200, A100, A400);
+$dark-warn:    mat-palette($mat-deep-orange);
+$dark-theme:   mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$dark-foreground: my-mat-light-theme-foreground(white);
+
+$dark-theme-custom: map-merge($dark-theme, (foreground: $dark-foreground));
+
+// Include the alternative theme styles inside of a block with a CSS class. You can make this
+// CSS class whatever you want. In this example, any component inside of an element with
+// `.unicorn-dark-theme` will be affected by this alternate dark theme instead of the default theme.
+.unicorn-dark-theme {
+  @include angular-material-theme($dark-theme-custom);
+}
+
+.alternate-button {
+  @include mat-button-theme($dark-theme-custom);
+}

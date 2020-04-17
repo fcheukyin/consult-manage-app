@@ -1,0 +1,57 @@
+<div class="title font-weight-bold mb-3">メンバー一覧</div>
+
+<table class="table table-stripped">
+    <thead>
+        <tr>
+            <th scope="col">名前</th>
+            <th scope="col">役職</th>
+            <th scope="col">所属</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let employee of employees;" (click)="onSelectEmployee(employee)">
+            <td>{{employee.firstName}}{{employee.lastName}}</td>
+            <td>{{employee.positionName}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="card" *ngIf="selectEmployee">
+    <div class="card-header d-flex align-items-center">
+        <span>No. {{selectEmployee.id}}</span>
+        <i class="material-icons" (click)="clearSelect()" style="cursor:pointer;">close</i>
+    </div>
+    <div class="card-body">
+         <mat-form-field class="mr-2" >
+            <mat-label>苗字</mat-label>
+            <input matInput [(ngModel)]="selectEmployee.firstName"/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>名前</mat-label>
+            <input matInput [(ngModel)]="selectEmployee.lastName"/>
+        </mat-form-field>
+        <div>
+        <label>
+            モチベーションタイプ：
+            <span>{{selectEmployee.motivationName}}</span>
+        </label>
+        </div>
+        <div>
+        <label>
+            所属ユニット：
+            <span>{{selectEmployee.unitName}}</span>
+        </label>
+        </div>
+        <div>
+        <label>
+            魅力：
+            <span>{{selectEmployee.charmName}}</span>
+        </label>
+        </div>
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-raised btn-primary mr-2" (click)="updateEmployee()">更新</button>
+        <span>{{message}}</span>
+    </div>
+</div>

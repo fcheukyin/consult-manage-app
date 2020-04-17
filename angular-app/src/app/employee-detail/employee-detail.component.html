@@ -1,0 +1,94 @@
+<div #page class="row" *ngIf="dataReady">
+    <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
+        <div class="employee-info main">
+            <div class="row">
+                <div class="col-6 h-100 position-relative">
+                    <div class="profile-pic position-absolute">
+                        <mat-icon>account_circle</mat-icon>
+                    </div>
+                </div>
+                <div class="col-6 h-100 position-relative">
+                    <span class="employee-name position-absolute">{{selectedEmployee.name}}</span>
+                    <span class="additional-info unit-name position-absolute ml-1">{{selectedEmployee.unitName}}</span>
+                    <span class="additional-info group-name position-absolute ml-1">{{selectedEmployee.groupName}}</span>
+                    <span class="additional-info position-name position-absolute ml-1">{{selectedEmployee.positionName}}</span>
+                </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="chips-bar d-flex justify-content-end pr-3 align-content-center flex-wrap">
+                <mat-chip-list>
+
+                    <mat-chip class="disable-select" [ngClass]="{
+                        'color-4': selectedEmployee.motivationName === 'ドライブ',
+                        'color-3': selectedEmployee.motivationName === 'ボランティア',
+                        'color-2': selectedEmployee.motivationName === 'アナライズ',
+                        'color-1': selectedEmployee.motivationName === 'クリエイト'
+                    }" selected>
+                        {{selectedEmployee.motivationName}}
+                    </mat-chip>
+
+                    <mat-chip class="disable-select" [ngClass]="{
+                        'color-2': selectedEmployee.charmName === 'People',
+                        'color-3': selectedEmployee.charmName === 'Privilege',
+                        'color-4': selectedEmployee.charmName === 'Philosophy',
+                        'color-5': selectedEmployee.charmName === 'Profession'
+                    }" selected>
+                        {{selectedEmployee.charmName}}
+                    </mat-chip>
+
+                    <mat-chip class="disable-select" [ngClass]="{
+                        'color-1': selectedEmployee.directivityName === '起業家',
+                        'color-2': selectedEmployee.directivityName === '結節点',
+                        'color-3': selectedEmployee.directivityName === '商売人',
+                        'color-4': selectedEmployee.directivityName === '伝道師'
+                    }" selected>
+                        {{selectedEmployee.directivityName}}
+                    </mat-chip>
+
+                </mat-chip-list>
+            </div> 
+        </div>
+        <div class="employee-info sub">
+            <div class="row h-100 m-0 d-flex">
+                <div class="col-4 d-flex justify-content-center align-items-center">
+                    <mat-icon class="icon-2x color-1">business_center</mat-icon>
+                </div>
+                <mat-divider vertical="true"></mat-divider>
+                <div class="col d-flex flex-column justify-content-center align-items-center">
+                    <div class="additional-info">
+                        通勤路線
+                    </div>
+                    <div class="pl-2">
+                        {{selectedEmployee.route}}
+                    </div>
+                    <div class="additional-info">
+                        最寄り駅
+                    </div>
+                    <div class="pl-2">
+                        {{selectedEmployee.station}}
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
+        <div *ngFor="let record of records; let i = index" class="meeting-info">
+            <div class="row h-100">
+                <div class="col-sm-3 col-md-4 col-lg-4 h-100">
+                    <div class="date-container color-1 d-flex flex-column justify-content-center align-items-center">
+                            <span class="date">{{record.meetingDate | date: 'dd'}}</span>
+                            <span class="month-year">{{record.meetingDate | date: 'yyyy/MM'}}</span>
+                    </div>
+                </div>
+                <div class="col h-100 pl-0">
+                    <div class="meeting-category">
+                        {{record.category}}
+                    </div>
+                    <div [innerHTML]="record.content" class="content-abstract"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
