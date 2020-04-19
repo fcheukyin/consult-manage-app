@@ -28,6 +28,7 @@ db.motivations = require('../model/motivation.js')(sequelize, Sequelize);
 db.charms = require('../model/charm.js')(sequelize, Sequelize);
 db.groups = require('../model/group.js')(sequelize, Sequelize);
 db.directivities = require('../model/directivity.js')(sequelize, Sequelize);
+db.reviewers = require('../model/reviewer.js')(sequelize, Sequelize);
 
 db.employees.hasMany(db.meeting_records, {foreignKey: 'id', targetKey: 'employeeId'});
 db.meeting_records.belongsTo(db.employees, {foreignKey: 'employeeId', targetKey: 'id'});

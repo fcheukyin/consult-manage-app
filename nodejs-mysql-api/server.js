@@ -1,8 +1,8 @@
 process.env.TZ = 'Tokyo/Japan'
-
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
 app.use(bodyParser.json())
  
 const cors = require('cors')
@@ -14,6 +14,8 @@ const corsOptions = {
 app.use(cors(corsOptions))
  
 const db = require('./app/config/db.config.js');
+
+require('./app/route/auth.route.js')(app);
  
 require('./app/route/employee.route.js')(app);
 require('./app/route/meeting-record.route.js')(app);

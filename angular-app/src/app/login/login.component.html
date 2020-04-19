@@ -1,0 +1,26 @@
+<div class="container-login">
+    <div class="form-login">
+        <div class="field-container d-none d-md-block d-lg-block">
+            テスト
+        </div>
+        <form [formGroup]="formGroup">
+            <div class="field-container">
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>社内メールアドレス</mat-label>
+                        <input matInput formControlName="email" type="email">
+                        <mat-icon matSuffix>mail</mat-icon>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>パスワード</mat-label>
+                        <input matInput formControlName="password" type="password">
+                        <mat-icon matSuffix>lock</mat-icon>
+                    </mat-form-field>
+                </p>
+                <button mat-flat-button color="primary" (click)="onSubmit()">ログイン</button>
+            </div>
+        </form>
+    </div>
+</div>

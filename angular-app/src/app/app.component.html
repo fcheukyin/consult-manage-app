@@ -1,4 +1,4 @@
-<div style="height:100vh;" >
+
 
   <mat-toolbar color="primary" >
     <div class="toolbar d-flex flex-row align-items-center">
@@ -12,13 +12,13 @@
       </div>
     </div>
   </mat-toolbar>
-
+  <div class="main-content">
   <mat-sidenav-container fxFlexFill class="example-container" autosize>
     <mat-sidenav #sidenav fxLayout="column" [mode]="sidenavMode" [opened]="sidenavOpen" (openedStart)="navOpen($event)" (closedStart)="navOpen($event)">
       <div fxFlex fxLayout="column" fxLayoutAlign="start start">
         <a matTooltip="ホーム" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/" routerLinkActive="active" mat-button><mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon><span *ngIf="sidenavMode === 'over'">ホーム</span></a>
         <a matTooltip="社員一覧" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/employees" routerLinkActive="active" mat-button><mat-icon aria-hidden="false" aria-label="Example home icon">how_to_reg</mat-icon><span *ngIf="sidenavMode === 'over'">社員一覧</span></a>
-        <a matTooltip="機能" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/" routerLinkActive="active" mat-button><mat-icon aria-hidden="false" aria-label="Example home icon">poll</mat-icon><span *ngIf="sidenavMode === 'over'">機能</span></a>
+        <a matTooltip="機能" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/login" routerLinkActive="active" mat-button><mat-icon aria-hidden="false" aria-label="Example home icon">poll</mat-icon><span *ngIf="sidenavMode === 'over'">機能</span></a>
       </div>
     </mat-sidenav>
     <mat-sidenav-content>
