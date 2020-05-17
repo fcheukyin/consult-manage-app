@@ -29,7 +29,7 @@ export class Employee {
 
     constructor (employee: Employee) {
         this.id = employee.id;
-        this.name = employee.firstName + employee.lastName;
+        this.name = employee.name;
         this.firstName = employee.firstName;
         this.lastName = employee.lastName;
         this.firstnameKana = employee.firstnameKana;

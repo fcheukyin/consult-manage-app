@@ -1,0 +1,43 @@
+<div mat-dialog-title class="dialog-header color-2">
+    <div class="header-decor"></div>
+    <div class="d-flex justify-content-start align-items-end p-3">
+        <span class="category mt-1 mr-2">異動履歴</span>
+    </div>
+</div>
+<mat-dialog-content>
+<div *ngIf="records" class="mb-4 mr-4 ml-4 mt-1">
+    <mat-list *ngFor="let record of records; let i = index">
+        <mat-list-item>
+            <div class="transfer-wrapper d-block d-sm-flex d-md-flex d-lg-flex">
+                <div class="date-wrapper">
+                    <div class="date-container d-none d-sm-flex d-md-flex d-lg-flex flex-column justify-content-center align-items-center">
+                        <span class="date-month">{{record.transferDate | date: 'MM/dd'}}</span>
+                        <span class="year">{{record.transferDate | date: 'yyyy'}}</span>
+                    </div>
+                    <div class="date-container d-flex d-sm-none d-md-none d-lg-none justify-content-center align-items-center">
+                        <span>{{record.transferDate | date: 'yyyy/MM/dd'}}</span>
+                    </div>
+                </div>
+                <div class="record-wrapper d-inline-block d-sm-flex d-md-flex d-lg-flex flex-column justify-content-center align-items-center">
+                    <span class="line-1">
+                        <span class="mr-1">{{record.oldUnitName}}</span>
+                        <span>{{record.oldGroupName}}</span>
+                    </span>
+                    <span class="line-2">{{record.oldReviewerName}}</span>
+                </div>
+                <div class="arrow-wrapper d-inline-block d-sm-flex d-md-flex d-lg-flex align-items-center">
+                    <mat-icon class="color-grey">trending_flat</mat-icon>
+                </div>
+                <div class="record-wrapper d-inline-block d-sm-flex d-md-flex d-lg-flex flex-column justify-content-center align-items-center">
+                    <span class="line-1">
+                        <span class="mr-1">{{record.newUnitName}}</span>
+                        <span>{{record.newGroupName}}</span>
+                    </span>
+                    <span class="line-2">{{record.newReviewerName}}</span>
+                </div>
+            </div>
+        </mat-list-item>
+        <mat-divider *ngIf="i+1 != records.length"></mat-divider>
+    </mat-list>
+</div>
+</mat-dialog-content>

@@ -1,4 +1,4 @@
-process.env.TZ = 'Tokyo/Japan'
+process.env.TZ = 'Asia/Tokyo'
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
@@ -21,6 +21,7 @@ require('./app/route/employee.route.js')(app);
 require('./app/route/meeting-record.route.js')(app);
 require('./app/route/group.route.js')(app);
 require('./app/route/unit.route.js')(app);
+require('./app/route/transfer-record.route.js')(app);
  
 // Create a Server
 var server = app.listen(8080, function () {

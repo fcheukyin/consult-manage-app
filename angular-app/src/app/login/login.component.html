@@ -1,10 +1,10 @@
 <div class="container-login">
     <div class="form-login">
         <div class="field-container d-none d-md-block d-lg-block">
-            テスト
+            <img src="../../assets/image/logo.svg" class="login-img mx-auto d-block">
         </div>
-        <form [formGroup]="formGroup">
-            <div class="field-container">
+        <div class="field-container d-block">
+            <form [formGroup]="formGroup">
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>社内メールアドレス</mat-label>
@@ -20,7 +20,7 @@
                     </mat-form-field>
                 </p>
                 <button mat-flat-button color="primary" (click)="onSubmit()">ログイン</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

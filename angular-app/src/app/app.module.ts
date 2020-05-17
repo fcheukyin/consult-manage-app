@@ -14,6 +14,9 @@ import { MatBottomSheetFilter } from './mat-config/mat-bottom-sheet-filter.compo
 import * as _moment from 'moment';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { LoginComponent } from './login/login.component';
+import { TransferRecordListComponent } from './transfer-record-list/transfer-record-list.component';
+import { MeetingRecordDetailsComponent } from './meeting-record-details/meeting-record-details.component.spec';
+import { CreateMeetingRecordComponent } from './create-meeting-record/create-meeting-record.component';
 
 @NgModule({
   imports: [
@@ -29,7 +32,10 @@ import { LoginComponent } from './login/login.component';
     EmployeeListComponent,
     MatBottomSheetFilter,
     EmployeeDetailComponent,
-    LoginComponent
+    LoginComponent,
+    TransferRecordListComponent,
+    MeetingRecordDetailsComponent,
+    CreateMeetingRecordComponent
   ],
   bootstrap: [AppComponent]
 })

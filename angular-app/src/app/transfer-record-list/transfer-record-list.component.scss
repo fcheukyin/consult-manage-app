@@ -1,0 +1,83 @@
+.date-container {
+
+    &>.date-month {
+        font-size: 1em;
+        font-weight: bold;
+        margin-bottom: .2em;
+    }
+    &>.year {
+        font-size: .8em;
+    }
+}
+
+
+.transfer-wrapper {
+    height: 4em;
+    width: 400px;
+
+    div {
+        height: 100%;
+        display: inline-block;
+    }
+    .date-wrapper {
+        width:10%;
+    }
+    .record-wrapper {
+        width: 42.5%;
+        .line-1 {
+            font-size: .8em;
+            margin-bottom: .4em;
+        }
+        .line-2 {
+            font-size: 1.2em;
+        }
+    }
+    .arrow-wrapper {
+        width: 5%;
+    }
+
+    @media(max-width: 575px) {
+        height: 5.7em;
+        .date-wrapper {
+            width: 100%;
+            height: 1.2em;
+        }
+        .record-wrapper {
+            width: 45%;
+            height: 3.5em;
+            position: relative;
+            .line-1 {
+                position: absolute;
+                left: 15%;
+                top: 25%;
+                font-size: .8em;
+                margin-bottom: 0;
+            }
+            .line-2 {
+                position: absolute;
+                left: 15%;
+                top: calc(25% + 1.2em);
+                font-size: 1em;
+            }
+        }
+        .arrow-wrapper {
+            mat-icon {
+                position: absolute;
+                top: 50%;
+            }
+            width: 10%;
+            height: 3.5em;
+        }
+    }
+}
+.mat-list-item {
+    height: 4em !important;
+    @media(max-width: 575px) {
+        height: 5.7em !important;
+    }
+}
+.no-record {
+    color: lightgray;
+    font-size: 2em;
+    opacity: .7;
+}

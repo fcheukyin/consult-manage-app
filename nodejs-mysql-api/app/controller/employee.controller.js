@@ -88,6 +88,7 @@ exports.findById = (req, res) => {
                           [db.sequelize.col('group.name'),'groupName']
                         ]},
     raw:true}).then(employee => {
+      employee.name = employee.firstName + employee.lastName;
       res.json(employee);
   });
 };

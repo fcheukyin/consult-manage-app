@@ -5,7 +5,7 @@ const sequelize = new Sequelize(env.database, env.username, env.password, {
   host: env.host,
   dialect: env.dialect,
   operatorsAliases: false,
- 
+  timezone: '+9:00',
   pool: {
     max: env.max,
     min: env.pool.min,
@@ -29,9 +29,11 @@ db.charms = require('../model/charm.js')(sequelize, Sequelize);
 db.groups = require('../model/group.js')(sequelize, Sequelize);
 db.directivities = require('../model/directivity.js')(sequelize, Sequelize);
 db.reviewers = require('../model/reviewer.js')(sequelize, Sequelize);
+db.transfer_records = require('../model/transfer-record.js')(sequelize, Sequelize);
 
 db.employees.hasMany(db.meeting_records, {foreignKey: 'id', targetKey: 'employeeId'});
 db.meeting_records.belongsTo(db.employees, {foreignKey: 'employeeId', targetKey: 'id'});
+db.meeting_records.belongsTo(db.reviewers, {foreignKey: 'reviewerId', targetKey: 'id'});
  
 db.employees.belongsTo(db.positions, {foreignKey: 'positionId', targetKey: 'id'});
 db.positions.hasMany(db.employees, {foreignKey: 'id', targetKey: 'positionId'});
@@ -50,5 +52,16 @@ db.directivities.hasMany(db.employees, {foreignKey: 'id', targetKey: 'directivit
 
 db.employees.belongsTo(db.groups, {foreignKey: 'groupId', targetKey: 'id'});
 db.groups.hasMany(db.employees, {foreignKey: 'id', targetKey: 'groupId'});
+
+db.transfer_records.belongsTo(db.reviewers, {as: 'oldReviewer', foreignKey: 'oldReviewerId', targetKey: 'id'});
+db.transfer_records.belongsTo(db.reviewers, {as: 'newReviewer', foreignKey: 'newReviewerId', targetKey: 'id'});
+db.transfer_records.belongsTo(db.groups, {as: 'oldGroup', foreignKey: 'oldGroupId', targetKey: 'id'});
+db.transfer_records.belongsTo(db.groups, {as: 'newGroup', foreignKey: 'newGroupId', targetKey: 'id'});
+db.transfer_records.belongsTo(db.units, {as: 'oldUnit', foreignKey: 'oldUnitId', targetKey: 'id'});
+db.transfer_records.belongsTo(db.units, {as: 'newUnit', foreignKey: 'newUnitId', targetKey: 'id'});
+
+db.reviewers.belongsTo(db.groups, {foreignKey: 'groupId', targetKey: 'id'});
+db.reviewers.belongsTo(db.units, {foreignKey: 'unitId', targetKey: 'id'});
+db.reviewers.belongsTo(db.positions, {foreignKey: 'positionId', targetKey: 'id'});
 
 module.exports = db;

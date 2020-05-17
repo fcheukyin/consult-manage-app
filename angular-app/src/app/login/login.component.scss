@@ -24,30 +24,36 @@ $toolbar-height: 64px;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    padding: 10px 80px;
+    padding: 0px;
 
+    @media (max-width: 992px) {
+        padding: 0 40px;
+    }
     @media (max-width: 767px) {
         height: 70vh;
         width: 100%;
         padding: 30px 40px;
     }
-    @media (max-width: 992px) {
-        padding: 0 40px;
-    }
 }
 .field-container {
-
-    width: 296px;
+    width: 45%;
     
-    @media (max-width: 767px) {
-        width: 100%
-    }
     @media (max-width: 992px) {
         width: 45%;
+    }
+    @media (max-width: 767px) {
+        width: 80%;
     }
 
     p mat-form-field, button {
         width: 100%;
+        @media (min-width: 993px) {
+            width: 80%;
+        }
     }
+}
 
+.login-img {
+    max-width: 70%;
+    height: auto;
 }

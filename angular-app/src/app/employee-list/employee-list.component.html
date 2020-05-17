@@ -5,7 +5,7 @@
                 <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> 名前 </th>
                     <td mat-cell *matCellDef="let element">
-                        <span routerLink="/employees/{{element.id}}" routerLinkActive="active">{{element.name}}</span>
+                        <a routerLink="/employees/{{element.id}}" routerLinkActive="active">{{element.name}}</a>
                     </td>
                 </ng-container>
 
@@ -27,12 +27,9 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
             <mat-paginator [pageSize]="25" showFirstLastButtons></mat-paginator>
-            <button mat-fab color="primary" class="bottom-right-fab" (click)="openFilterMenu()">
-                <mat-icon>filter_list</mat-icon>
-            </button>
         </div>
     </div>
-    <button mat-fab color="primary" class="bottom-right-fab" (click)="openFilterMenu()">
+    <button mat-fab color="primary" class="bottom-right-fab bottom-1" (click)="openFilterMenu()">
         <mat-icon>filter_list</mat-icon>
     </button>
 </div>

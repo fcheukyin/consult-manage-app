@@ -24,6 +24,10 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatListModule } from '@angular/material/list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 export const MY_FORMATS = {
   parse: {
@@ -60,7 +64,11 @@ export const MY_FORMATS = {
     MatDividerModule,
     MatChipsModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
               {provide: MatPaginatorIntl, useClass: MatPaginatorIntlCtrl},
@@ -89,7 +97,11 @@ export const MY_FORMATS = {
     MatDividerModule,
     MatChipsModule,
     MatTabsModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
 })
 export class MatModule { }

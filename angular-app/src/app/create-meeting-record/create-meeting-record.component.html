@@ -1,0 +1,39 @@
+<div mat-dialog-title class="color-2 dialog-header">
+    <div class="header-decor"></div>
+    <div class="d-flex justify-content-start align-items-end p-3">
+        <span class="category mt-1 mr-2">新規面談</span>
+    </div>
+</div>
+<mat-dialog-content>
+    <div class="meeting-content p-2">
+        <form [formGroup]="formGroup">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>カテゴリ</mat-label>
+                    <input matInput formControlName="category" type="text">
+                    <mat-icon matSuffix>category</mat-icon>
+                    <mat-error *ngIf="formGroup.controls.category.invalid">{{getErrorMessage('category')}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                    <mat-label>面談日</mat-label>
+                    <input matInput formControlName="meetingDate" [matDatepicker]="datePicker">
+                    <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                    <mat-datepicker [touchUi]="datepickerTouchUi" #datePicker></mat-datepicker>
+                    <mat-error *ngIf="formGroup.controls.meetingDate.invalid">{{getErrorMessage('meetingDate')}}</mat-error>
+                </mat-form-field>
+            </p>
+            <p>
+                <mat-form-field appearance="outline" style="width: 100%">
+                    <mat-label>面談内容</mat-label>
+                    <textarea matInput formControlName="content" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                    [cdkAutosizeMinRows]="textareaMinRow"
+                    [cdkAutosizeMaxRows]="textareaMaxRow"></textarea>
+                    <mat-hint>文字数: {{formGroup.controls.content.value.length}}/1000</mat-hint>
+                    <mat-error *ngIf="formGroup.controls.content.invalid">{{getErrorMessage('content')}}</mat-error>
+                </mat-form-field>
+            </p>
+            <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!formGroup.valid">登録</button>
+        </form>
+    </div>
+</mat-dialog-content>

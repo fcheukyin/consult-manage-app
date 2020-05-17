@@ -11,7 +11,7 @@ $color-gradient-4: linear-gradient(to right, #ab99ce, #bf9eca);
 $color-gradient-5: linear-gradient(to right, #f88b8b, #faa993);
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 
 .mat-sort-header-button {
     outline: 0 !important;
@@ -20,6 +20,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 mat-icon {
     vertical-align: middle;
     user-select: none;
+}
+button:focus {
+    outline: 0 !important;
 }
 
 // .mat-drawer {
@@ -101,10 +104,30 @@ mat-chip {
     user-select: none;
 }
 
+@mixin bottom-fab-calc-pos($order) {
+    bottom: calc((56px + 14px) * (#{$order} - 1) + 14px);
+}
+
 .bottom-right-fab {
     position: fixed !important;
     right: 1em;
-    bottom: 1em;
+    mat-icon {
+        animation: fab-scale 500ms forwards;
+    }
+    &.bottom-1 {
+        @include bottom-fab-calc-pos(1);
+    }
+    &.bottom-2 {
+        @include bottom-fab-calc-pos(2);
+    }
+    &.bottom-3 {
+        @include bottom-fab-calc-pos(3);
+    }
+}
+
+@keyframes fab-scale {
+    from {transform: rotate(45deg) scale(0);}
+    to {transform: rotate(0) scale(1)}
 }
 
 div {
@@ -122,5 +145,90 @@ div {
     }
     &.color-5 {
         background-image: $color-gradient-5;
+    }
+}
+
+.highlight {
+    font-size: .5em;
+    line-height: .5em;
+}
+
+.no-hover:hover{
+    color: unset;
+}
+
+.color-grey {
+    color: grey;
+}
+
+.mat-dialog-container {
+    padding-top: 6px !important;
+}
+
+.meeting-record-dialog-container, .transfer-dialog-container {
+    .mat-dialog-container, .mat-dialog-content {
+        overflow: hidden;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .mat-dialog-content {
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+    }
+    .mat-dialog-content::-webkit-scrollbar {
+        display: none;
+    }
+}
+.dialog-header {
+    color: #ffffff;
+    position: relative;
+    .header-decor {
+        position: absolute;
+        top: .7em;
+        width: 30%;
+        height: 1px;
+        background: #ffffff;
+    }
+    .category {
+        line-height: 1em;
+    }
+    .date {
+        font-size: .8em;
+        line-height: .8em;
+    }
+    .mat-icon {
+        transform: scale(.6);
+        height: 0;
+    }
+    .info-wrapper {
+        height: 2.5em;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .info {
+            font-size: .8em;
+            line-height: .8em;
+            margin-bottom: .5em;
+        }
+        .additional-info {
+            color: inherit;
+            font-size: .5em;
+            line-height: .5em;
+        }
+    }
+}
+
+.slidein {
+    animation: slide-in 750ms linear forwards;
+}
+@keyframes slide-in {
+    from{
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    to{
+        transform: translateX(0);
+        opacity: 1;
     }
 }

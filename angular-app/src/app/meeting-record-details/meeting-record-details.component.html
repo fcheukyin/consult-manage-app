@@ -1,0 +1,28 @@
+<div mat-dialog-title class="color-1 dialog-header">
+        <div class="header-decor"></div>
+        <div class="d-flex justify-content-start align-items-end p-3">
+            <span class="category mr-2">{{record.category}}</span>
+            <span><mat-icon>event</mat-icon></span>
+            <span class="date">
+                {{record.meetingDate | date: 'yyyy/MM/dd'}}
+            </span>
+        </div>
+        <div class="row m-0">
+            <div class="col">
+                <div class="info-wrapper">
+                    <span class="info">{{record.reviewerName}}</span>
+                    <span class="additional-info">評価者</span>
+                </div>
+            </div>
+            <mat-divider [vertical]="true"></mat-divider>
+            <div class="col">
+                <div class="info-wrapper">
+                    <span class="info">{{record.employeeName}}</span>
+                    <span class="additional-info">被評価者</span>
+                </div>
+            </div>
+        </div>
+</div>
+<mat-dialog-content>
+    <div class="meeting-content" [innerHTML]="record.content"></div>
+</mat-dialog-content>

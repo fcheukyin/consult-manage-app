@@ -2,13 +2,10 @@
     <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
         <div class="employee-info main">
             <div class="row">
-                <div class="col-6 h-100 position-relative">
-                    <div class="profile-pic position-absolute">
-                        <mat-icon>account_circle</mat-icon>
-                    </div>
+                <div class="col-6 h-100 position-relative d-flex justify-content-center">
+                    <span class="employee-name position-absolute">{{selectedEmployee.name}}</span>
                 </div>
                 <div class="col-6 h-100 position-relative">
-                    <span class="employee-name position-absolute">{{selectedEmployee.name}}</span>
                     <span class="additional-info unit-name position-absolute ml-1">{{selectedEmployee.unitName}}</span>
                     <span class="additional-info group-name position-absolute ml-1">{{selectedEmployee.groupName}}</span>
                     <span class="additional-info position-name position-absolute ml-1">{{selectedEmployee.positionName}}</span>
@@ -74,21 +71,33 @@
     </div>
    
     <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
-        <div *ngFor="let record of records; let i = index" class="meeting-info">
+        <div *ngFor="let record of records; let i = index" class="meeting-info" [ngClass]="{'slidein': record.id == recordCreated}">
             <div class="row h-100">
                 <div class="col-4 h-100">
                     <div class="date-container color-1 d-flex flex-column justify-content-center align-items-center">
-                            <span class="date">{{record.meetingDate | date: 'dd'}}</span>
-                            <span class="month-year">{{record.meetingDate | date: 'yyyy/MM'}}</span>
+                            <span class="date">{{record.meetingDate | date: 'MM/dd'}}</span>
+                            <span class="month-year">{{record.meetingDate | date: 'yyyy'}}</span>
                     </div>
                 </div>
-                <div class="col h-100 pl-0">
-                    <div class="meeting-category">
-                        {{record.category}}
+                <div class="col h-100 pl-3">
+                    <div class="wrapper">
+                        <span class="meeting-category">
+                            {{record.category}}
+                        </span>
+                        <span class="meeting-reviewer">
+                            <mat-icon>people</mat-icon>{{record.reviewerName}}
+                        </span>
+                        <button mat-icon-button class="expand-btn" (click)="showMeetingDetail(record)"><mat-icon>add</mat-icon></button>
                     </div>
-                    <div [innerHTML]="record.content" class="content-abstract"></div>
+                    <!-- <div [innerHTML]="record.content" class="content-abstract"></div> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<button mat-fab color="primary" class="bottom-right-fab bottom-1" matTooltip="新規面談" matTooltipPosition="left" (click)="showCreateRecord()">
+    <mat-icon>post_add</mat-icon>
+</button>
+<button *ngIf="transfers" mat-fab color="primary" class="bottom-right-fab bottom-2" matTooltip="異動履歴" matTooltipPosition="left" (click)="showTransferRecord()">
+    <mat-icon>compare_arrows</mat-icon>
+</button>

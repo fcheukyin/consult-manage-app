@@ -12,7 +12,7 @@ import { Reviewer } from '../shared/reviewer.model';
 export class LoginComponent implements OnInit {
 
   formGroup: FormGroup;
-
+  msg: string;
   reviewer: Reviewer;
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
@@ -25,10 +25,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.authService.login(this.formGroup.get(['email']).value, this.formGroup.get(['password']).value)
-                      .subscribe(() => {
-                                        console.log('Logged In!!!');
-                                        this.router.navigate(['/employees']);
-                                        });
+    this.authService.login(this.formGroup.get(['email']).value, this.formGroup.get(['password']).value).subscribe();
   }
 }

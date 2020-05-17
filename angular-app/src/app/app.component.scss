@@ -11,6 +11,12 @@ mat-sidenav-content::-webkit-scrollbar {
     display: none;
 }
 
+.mat-drawer {
+    @media (max-width: 599px) {
+        width: 65vw !important;
+    }
+}
+
 .toolbar-hamburger mat-icon{
     transition: all 300ms ease-in-out;
 }
@@ -59,4 +65,24 @@ mat-sidenav-content::-webkit-scrollbar {
 
 .toolbar-hamburger.toggled:after {
     transform: translateY(-.3em) rotate(-45deg);
+}
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.toolbar-username {
+    font-size: .8em;
+}
+
+.drawer-userinfo {
+    height: 100px;
+    width: 100%;
+    color: #ffffff;
+    mat-icon {
+        transform: scale(2);
+    }
+    .username {
+        font-size: 1.2em;
+    }
 }

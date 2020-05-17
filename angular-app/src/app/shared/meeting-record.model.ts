@@ -1,7 +1,9 @@
 export class MeetingRecord {
     id: number;
     employeeName: string;
-    reviewName: string;
+    employeeId: number;
+    reviewerName: string;
+    reviewerId: number;
     category: string;
     content: string;
     meetingDate: Date;
@@ -11,7 +13,7 @@ export class MeetingRecord {
     constructor(record: MeetingRecord) {
         this.id = record.id;
         this.employeeName = record.employeeName;
-        this.reviewName = record.reviewName;
+        this.reviewerName = record.reviewerName;
         this.category = record.category;
         this.content = record.content;
         this.meetingDate = record.meetingDate;

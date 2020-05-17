@@ -16,6 +16,8 @@ export class Reviewer {
     deletedAt: string
     createdAt: string;
     updatedAt: string;
+    authToken: string;
+    expireIn: number
 
     constructor (reviewer: Reviewer) {
         this.id = reviewer.id;
@@ -25,7 +27,6 @@ export class Reviewer {
         this.firstnameKana = reviewer.firstnameKana;
         this.lastnameKana = reviewer.lastnameKana;
         this.email = reviewer.email;
-        this.password = reviewer.password;
         this.groupId = reviewer.groupId;
         this.groupName = reviewer.groupName;
         this.unitId = reviewer.unitId;
