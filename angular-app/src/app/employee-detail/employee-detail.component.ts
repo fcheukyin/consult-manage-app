@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, delay } from 'rxjs/operators';
+import { switchMap, delay, timeInterval } from 'rxjs/operators';
 
 import { EmployeeService } from '../shared/service/employee.service';
 import { MeetingRecordService } from '../shared/service/meeting-record.service';
@@ -139,6 +139,7 @@ export class EmployeeDetailComponent implements OnInit{
         }
         if (result.action === 'deleted') {
           this.recordDeleted = result.deletedId;
+          setTimeout(() => this.getMeetingRecords(this.selectedEmployee.id), 300);
         }
       }
     });

@@ -58,8 +58,8 @@ export class MeetingRecordDetailsComponent {
         config.panelClass = "transfer-dialog-container";
         this.dialog.open(CreateMeetingRecordComponent, config).afterClosed()
           .subscribe(result => {
-            this.messageService.openSnackBar('面談記録を更新しました', '閉じる', 2000);
             if (result) {
+              this.messageService.openSnackBar('面談記録を更新しました', '閉じる', 2000);
               this.dialogRef.close(result)
             }
           });
