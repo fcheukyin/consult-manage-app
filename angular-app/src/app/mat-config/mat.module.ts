@@ -28,6 +28,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatListModule } from '@angular/material/list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
 
 export const MY_FORMATS = {
   parse: {
@@ -68,7 +70,9 @@ export const MY_FORMATS = {
     MatSnackBarModule,
     MatListModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatCardModule
   ],
   providers: [
               {provide: MatPaginatorIntl, useClass: MatPaginatorIntlCtrl},
@@ -101,7 +105,9 @@ export const MY_FORMATS = {
     MatSnackBarModule,
     MatListModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule,
+    MatCardModule
   ],
 })
 export class MatModule { }

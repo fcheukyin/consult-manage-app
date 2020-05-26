@@ -1,12 +1,30 @@
-<div mat-dialog-title class="color-2 dialog-header">
+<div mat-dialog-title class="dialog-header"
+[ngClass]="{
+    'color-2': !updateMode,
+    'color-3': updateMode
+}">
     <div class="header-decor"></div>
     <div class="d-flex justify-content-start align-items-end p-3">
-        <span class="category mt-1 mr-2">新規面談</span>
+        <span class="category mt-1 mr-2" *ngIf="!updateMode">新規面談</span>
+        <span class="category mt-1 mr-2" *ngIf="updateMode">面談編集</span>
     </div>
 </div>
 <mat-dialog-content>
     <div class="meeting-content p-2">
         <form [formGroup]="formGroup">
+            <p>
+                <mat-form-field appearance="outline">
+                    <mat-label>社員名</mat-label>
+                    <input matInput formControlName="employeeName" type="text" [matAutocomplete]="auto">
+                    <mat-icon matSuffix>person</mat-icon>
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of employeeAutoComplete | async" [value]="option.name">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    <mat-error *ngIf="formGroup.controls.employeeName.invalid">{{getErrorMessage('employeeName')}}</mat-error>
+                </mat-form-field>
+            </p>
             <p>
                 <mat-form-field appearance="outline">
                     <mat-label>カテゴリ</mat-label>
@@ -33,7 +51,9 @@
                     <mat-error *ngIf="formGroup.controls.content.invalid">{{getErrorMessage('content')}}</mat-error>
                 </mat-form-field>
             </p>
-            <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!formGroup.valid">登録</button>
+            <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!formGroup.valid" *ngIf="!updateMode">登録</button>
+            <button mat-flat-button color="primary" (click)="onSubmit()" [disabled]="!formGroup.valid" *ngIf="updateMode">更新</button>
+            <button mat-flat-button color="accent" class="ml-3" (click)="close()" *ngIf="updateMode">戻る</button>
         </form>
     </div>
 </mat-dialog-content>

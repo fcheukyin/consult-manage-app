@@ -1,0 +1,11 @@
+@import "~@angular/material/theming";
+
+@mixin info-container {
+    @include mat-elevation(1);
+    width: 90%;
+    border-radius: .5em;
+    background-color: #fff;
+    margin-top: 1em;
+
+    transition: width 600ms cubic-bezier(0.4, 0.0, 0.2, 1),height 300ms cubic-bezier(0.4, 0.0, 0.2, 1) 600ms;
+}

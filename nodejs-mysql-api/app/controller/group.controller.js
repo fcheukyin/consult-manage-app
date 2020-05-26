@@ -7,7 +7,6 @@ exports.findAll = (req, res) => {
                                         [db.sequelize.col('group.name'),'name'],
                                     ]},
                 raw:true}).then(groups => {
-    console.log(groups);
     res.json(groups);
   });
 };

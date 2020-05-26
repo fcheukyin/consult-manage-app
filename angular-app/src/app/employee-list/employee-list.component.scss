@@ -2,7 +2,7 @@
 
 @mixin info-container {
     @include mat-elevation-transition;
-    @include mat-elevation(3);
+    @include mat-elevation(1);
     width: 100%;
     border-radius: .5em;
     background-color: #fff;

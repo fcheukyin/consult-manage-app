@@ -8,6 +8,7 @@ import { HttpInterceptorProviders } from '../shared/http-interceptors/index';
 import { TransferRecordService } from '../shared/service/transfer-record.service';
 import { MeetingRecordService } from '../shared/service/meeting-record.service';
 import { ResponsiveService } from '../shared/service/responsive.service';
+import { RouteService } from '../shared/service/route.service';
 
 @NgModule({
   declarations: [],
@@ -21,6 +22,7 @@ import { ResponsiveService } from '../shared/service/responsive.service';
                 TransferRecordService,
                 MeetingRecordService,
                 ResponsiveService,
+                RouteService,
                 HttpInterceptorProviders
               ],
   exports: []

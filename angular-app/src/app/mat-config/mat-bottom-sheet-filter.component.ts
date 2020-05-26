@@ -11,6 +11,7 @@ import { map, startWith } from 'rxjs/operators';
 
 import { MatBottomSheetRef } from '@angular/material/bottom-sheet'
 import { FormControl } from '@angular/forms';
+import { ResponsiveService } from '../shared/service/responsive.service';
 
 
 
@@ -30,9 +31,10 @@ export class MatBottomSheetFilter implements OnInit{
     myControl = new FormControl();
     options: String[] = [];
     filteredOptions: Observable<String[]>;
+    datepickerTouchUi: boolean;
 
     constructor(private employeeService: EmployeeService, private groupService: GroupService, private unitService: UnitService,
-                private bottomSheetRef: MatBottomSheetRef) { }
+                private bottomSheetRef: MatBottomSheetRef, private responsiveService: ResponsiveService) { }
     
     openLink(event: MouseEvent): void {
         this.bottomSheetRef.dismiss();
@@ -64,17 +66,23 @@ export class MatBottomSheetFilter implements OnInit{
         switch(item) {
         case 'name':
             for (let i = 0; i < this.employees.length; i++) {
-            this.options.push(this.employees[i].name);
+                if (this.employees[i].name.toLowerCase().includes(this.filter.name.toLowerCase())){
+                    this.options.push(this.employees[i].name);
+                }
             }
             break;
         case 'group':
             for (let i = 0; i < this.groups.length; i++) {
-            this.options.push(this.groups[i].name);
+                if (this.groups[i].name.toLowerCase().includes(this.filter.groupName.toLowerCase())){
+                    this.options.push(this.groups[i].name);
+                }
             }
             break;
         case 'unit':
             for (let i = 0; i < this.units.length; i++) {
-            this.options.push(this.units[i].name);
+                if (this.units[i].name.toLowerCase().includes(this.filter.unitName.toLowerCase())){
+                    this.options.push(this.units[i].name);
+                }
             }
             break;
         }
@@ -94,6 +102,7 @@ export class MatBottomSheetFilter implements OnInit{
         this.getGroups();
         this.getUnits();
         this.filter = this.employeeService.getFilter();
+        this.datepickerTouchUi = this.responsiveService.datepickerTouchUi();
     }
 
     private _filter(value: string): String[] {

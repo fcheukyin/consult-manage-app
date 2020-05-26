@@ -7,7 +7,7 @@ import { EmployeeService } from '../shared/service/employee.service';
 import { GroupService } from '../shared/service/group.service';
 import { UnitService } from '../shared/service/unit.service';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, delay } from 'rxjs/operators';
 
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -32,6 +32,7 @@ export class EmployeeListComponent implements OnInit {
   employees: Employee [];
   units: Unit [];
   groups: Group [];
+  dataLoading = true;
 
   //MatTable
   displayedColumns: String[] = ['name', 'groupName', 'unitName', 'lastMeeting'];
@@ -73,7 +74,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getEmployees(): void {
-    this.employeeService.getEmployees()
+    this.employeeService.getEmployees().pipe(delay(3000))
                         .subscribe(employees =>
                                     { 
                                       for(let i = 0; i < employees.length; i++) {
@@ -81,6 +82,7 @@ export class EmployeeListComponent implements OnInit {
                                       }
                                       this.employees = employees;
                                       this.setMatTable();
+                                      this.dataLoading = false;
                                     });
   }
 

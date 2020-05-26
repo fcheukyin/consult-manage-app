@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../shared/service/auth.service';
 import { Reviewer } from '../shared/reviewer.model';
+import { MessageService } from '../shared/service/message.service';
 
 @Component({
   selector: 'app-login',
@@ -15,9 +16,14 @@ export class LoginComponent implements OnInit {
   msg: string;
   reviewer: Reviewer;
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private messageService: MessageService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    if (this.authService.isLoggedIn()) {
+      this.messageService.invalidAction();
+      this.router.navigate(['dashboard']);
+    }
     this.formGroup = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required]

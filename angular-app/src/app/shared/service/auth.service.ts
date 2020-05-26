@@ -49,7 +49,7 @@ export class AuthService {
     localStorage.setItem('expire_at', JSON.stringify(expire.valueOf()));
 
     this.pushUserInfo(user);
-    this.router.navigate(['/employees']);
+    this.router.navigate(['dashboard']);
     this.messageService.openSnackBar(authmsgConfig.loginmsg, authmsgConfig.action, authmsgConfig.duration);
   }
 

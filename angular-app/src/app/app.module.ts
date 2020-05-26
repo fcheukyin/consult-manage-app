@@ -15,8 +15,9 @@ import * as _moment from 'moment';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
 import { LoginComponent } from './login/login.component';
 import { TransferRecordListComponent } from './transfer-record-list/transfer-record-list.component';
-import { MeetingRecordDetailsComponent } from './meeting-record-details/meeting-record-details.component.spec';
+import { MeetingRecordDetailsComponent } from './meeting-record-details/meeting-record-details.component';
 import { CreateMeetingRecordComponent } from './create-meeting-record/create-meeting-record.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -35,7 +36,8 @@ import { CreateMeetingRecordComponent } from './create-meeting-record/create-mee
     LoginComponent,
     TransferRecordListComponent,
     MeetingRecordDetailsComponent,
-    CreateMeetingRecordComponent
+    CreateMeetingRecordComponent,
+    DashboardComponent
   ],
   bootstrap: [AppComponent]
 })

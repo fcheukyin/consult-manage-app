@@ -1,0 +1,49 @@
+<div class="row" *ngIf="dataReady">
+    <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
+        <div class="dashboard-card extend">
+            <div class="card-title big-title color-5">
+                <span>クイックメニュー</span>
+            </div>
+            <div class="quick-action">
+                <div class="row">
+                    <div class="col color-1-no-grad action" routerLink="/employees">
+                        <mat-icon class="action-icon color-1-accent">people_alt</mat-icon>
+                        <span class="action-name color-1-accent">社員一覧</span>
+                    </div>
+                    <div class="col color-2-no-grad action" (click)="showCreateRecord()">
+                        <mat-icon class="action-icon color-2-accent">post_add</mat-icon>
+                        <span class="action-name color-2-accent">新規面談</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col color-3-no-grad action" routerLink="">
+                        <mat-icon class="action-icon color-3-accent">settings</mat-icon>
+                        <span class="action-name color-3-accent">設定</span>
+                    </div>
+                    <div class="col color-4-no-grad action" routerLink="">
+                        <mat-icon class="action-icon color-4-accent">add</mat-icon>
+                        <span class="action-name color-4-accent">追加</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
+        <div class="dashboard-card">
+            <div class="card-title color-4">
+                <span>タイムライン</span>
+            </div>
+            <div class="timeline mb-3" [ngStyle]="{'height.px': timeline.length * 32.5}">
+                <div class="timeline-item"  *ngFor="let item of timeline; let i = index">
+                    <div class="date">{{item.meetingDate | date: 'MM/dd'}}</div>
+                    <mat-icon [ngClass]="'color-' + timestampColor[i]">trip_origin</mat-icon>
+                    <div class="category">{{item.category}}</div>
+                    <div class="staff-name">
+                        <mat-icon>person</mat-icon>
+                        <a [routerLink]="['/employees/' + item.employeeId]">{{item.employeeName}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

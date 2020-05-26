@@ -3,12 +3,12 @@
         <div class="employee-info main">
             <div class="row">
                 <div class="col-6 h-100 position-relative d-flex justify-content-center">
-                    <span class="employee-name position-absolute">{{selectedEmployee.name}}</span>
+                    <span class="employee-name position-absolute">{{selectedEmployee?.name}}</span>
                 </div>
                 <div class="col-6 h-100 position-relative">
-                    <span class="additional-info unit-name position-absolute ml-1">{{selectedEmployee.unitName}}</span>
-                    <span class="additional-info group-name position-absolute ml-1">{{selectedEmployee.groupName}}</span>
-                    <span class="additional-info position-name position-absolute ml-1">{{selectedEmployee.positionName}}</span>
+                    <span class="additional-info unit-name position-absolute ml-1">{{selectedEmployee?.unitName}}</span>
+                    <span class="additional-info group-name position-absolute ml-1">{{selectedEmployee?.groupName}}</span>
+                    <span class="additional-info position-name position-absolute ml-1">{{selectedEmployee?.positionName}}</span>
                 </div>
             </div>
             <mat-divider></mat-divider>
@@ -64,14 +64,24 @@
                     <div class="pl-2">
                         {{selectedEmployee.station}}
                     </div>
-                    
+                    <div class="additional-info">
+                        出身
+                    </div>
+                    <div class="pl-2">
+                        {{selectedEmployee.prefectureName}}
+                    </div>
                 </div>
             </div>
         </div>
     </div>
    
     <div class="col-sm-12 col-md-6 p-0 d-flex flex-column align-items-center">
-        <div *ngFor="let record of records; let i = index" class="meeting-info" [ngClass]="{'slidein': record.id == recordCreated}">
+        <div *ngFor="let record of records; let i = index" class="meeting-info"
+        [ngClass]="{
+            'slidein': record.id == recordCreated,
+            'updated': record.id == recordUpdated,
+            'deleted': record.id == recordDeleted
+        }">
             <div class="row h-100">
                 <div class="col-4 h-100">
                     <div class="date-container color-1 d-flex flex-column justify-content-center align-items-center">
@@ -95,9 +105,15 @@
         </div>
     </div>
 </div>
-<button mat-fab color="primary" class="bottom-right-fab bottom-1" matTooltip="新規面談" matTooltipPosition="left" (click)="showCreateRecord()">
+<button mat-fab color="primary" class="bottom-right-fab bottom-1" matTooltip="新規面談" matTooltipPosition="left"
+(click)="showCreateRecord()" *ngIf="loginUser.id == selectedEmployee?.reviewerId">
     <mat-icon>post_add</mat-icon>
 </button>
-<button *ngIf="transfers" mat-fab color="primary" class="bottom-right-fab bottom-2" matTooltip="異動履歴" matTooltipPosition="left" (click)="showTransferRecord()">
+<button *ngIf="transfers" mat-fab color="primary" class="bottom-right-fab"
+matTooltip="異動履歴" matTooltipPosition="left" (click)="showTransferRecord()"
+[ngClass]="{
+    'bottom-1': loginUser.id != selectedEmployee?.reviewerId,
+    'bottom-2': loginUser.id == selectedEmployee?.reviewerId
+}">
     <mat-icon>compare_arrows</mat-icon>
 </button>

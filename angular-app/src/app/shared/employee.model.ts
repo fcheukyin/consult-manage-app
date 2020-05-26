@@ -9,6 +9,7 @@ export class Employee {
     station: string;
     family: string;
     prefectureId: number;
+    prefectureName: string;
     directivityId: number;
     directivityName: string;
     charmId: number;
@@ -38,6 +39,7 @@ export class Employee {
         this.station = employee.station;
         this.family = employee.family;
         this.prefectureId = employee.prefectureId;
+        this.prefectureName = employee.prefectureName;
         this.directivityId = employee.directivityId;
         this.directivityName = employee.directivityName;
         this.charmId = employee.charmId;

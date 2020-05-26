@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" >
+<mat-toolbar color="primary">
     <div *ngIf="loginUser" class="toolbar-hamburger mr-2" fxShow.xs="true" fxShow="false" (click)="sidenav.toggle()">
       <span class="icon">
         <!-- <mat-icon aria-hidden="false" aria-label="Example home icon">menu</mat-icon> -->
@@ -8,7 +8,10 @@
       <span>面談共有プロジェクト</span>
     </div>
     <span class="toolbar-spacer"></span>
-    <span *ngIf="loginUser" fxShow="true" fxShow.xs="false" class="mr-2 toolbar-username">{{loginUser.name}}</span>
+    <button mat-button *ngIf="loginUser" class="mr-2 toolbar-username" (click)="userInfoTrigger()">
+      <span fxShow="true" fxShow.xs="false">{{loginUser.name}}</span>
+      <span class="username-wrapper">{{loginUser.name.charAt(0)}}</span>
+    </button>
     <div *ngIf="loginUser" class="d-flex flex-column align-items-center justify-content-center h-100">
       <button mat-icon-button (click)="logout()"><mat-icon>lock_open</mat-icon></button>
       <span class="highlight">ログアウト</span>
@@ -22,8 +25,8 @@
 <div class="main-content">
   <mat-sidenav-container fxFlexFill class="example-container" autosize>
     <mat-sidenav #sidenav fxLayout="column" [mode]="sidenavMode" [opened]="sidenavOpen" (openedStart)="navOpen($event)" (closedStart)="navOpen($event)">
-      <div *ngIf="loginUser" fxFlex fxLayout="column" fxLayoutAlign="start start">
-        <div class="drawer-userinfo color-5" fxShow="false" fxShow.xs="true">
+      <div fxFlex fxLayout="column" fxLayoutAlign="start start">
+        <!-- <div class="drawer-userinfo color-5" fxShow="false" fxShow.xs="true">
           <div class="row h-100">
             <div class="col-5 d-flex justify-content-center align-items-center">
               <mat-icon>account_circle</mat-icon>
@@ -36,16 +39,72 @@
               </div>
             </div>
           </div>
-        </div>
-        <a matTooltip="ホーム" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/" routerLinkActive="active" mat-button><mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon><span *ngIf="sidenavMode === 'over'">ホーム</span></a>
-        <a matTooltip="社員一覧" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/employees" routerLinkActive="active" mat-button><mat-icon aria-hidden="false" aria-label="Example home icon">how_to_reg</mat-icon><span *ngIf="sidenavMode === 'over'">社員一覧</span></a>
+        </div> -->
+        <button mat-button isRoundButton="false" class="drawer-btn" matTooltip="ホーム" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'" routerLink="/" routerLinkActive="active">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+          <span *ngIf="sidenavMode === 'over'">ホーム</span>
+        </button>
+        <button mat-button isRoundButton="false" class="drawer-btn"
+          matTooltip="社員一覧" matTooltipPosition="after" [matTooltipDisabled]="sidenavMode==='over'"
+          routerLink="/employees" routerLinkActive="active"
+          *ngIf="loginUser" >
+          <mat-icon aria-hidden="false" aria-label="Example home icon">people_alt</mat-icon>
+          <span *ngIf="sidenavMode === 'over'">社員一覧</span>
+        </button>
       </div>
     </mat-sidenav>
     <mat-sidenav-content>
       <div class="container-fluid">
-        <router-outlet></router-outlet>
+        <div class="sub-nav row">
+          <div class="col d-flex justify-content-between align-items-center">
+            <span class="page-name">{{pageTitle}}</span>
+            <div>
+              <a mat-icon-button class="ripple"
+                  routerLink="dashboard" 
+                  matTooltip="ダッシュボード" matTooltipPosition="below" [matTooltipDisabled]="sidenavMode==='over'"
+                  *ngIf="loginUser" >
+                <mat-icon class="color-4">dashboard</mat-icon>
+              </a>
+              <a mat-flat-button class="sub-nav-btn no-hover" [routerLink]="previousRoute" *ngIf="previousRoute != '/login'">
+                戻る
+              </a>
+            </div>
+          </div>
+        </div>
+        <div style="padding-top: 50px;">
+          <router-outlet></router-outlet>
+        </div>
       </div>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </div>
-  
+<div *ngIf="loginUser" [@openClose]="userInfoOpen ? 'open' : 'closed'" class="user-info p-4">
+  <div class="header">アカウント情報</div>
+  <div class="d-flex mt-4 mb-4">
+    <mat-icon class="user-pic">portrait</mat-icon>
+    <div class="d-flex flex-column justify-content-around">
+      <span class="font-weight-bold">{{loginUser.name}}</span>
+      <span class="additional-info">{{loginUser.positionName}}</span>
+      <span class="additional-info"><mat-icon class="color-4">email</mat-icon>{{loginUser.email}}</span>
+      <button mat-flat-button color="primary" (click)="userInfoTrigger();logout()">ログアウト</button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="d-flex flex-column align-items-center">
+    <div class="userinfo-block color-5-no-grad">
+      <mat-icon>apartment</mat-icon>
+      <div class="d-inline-flex flex-column flex-column justify-content-center">
+        <span class="additional-info text-white">ユニット</span>
+        <span class="big-info">{{loginUser.unitName}}</span>
+      </div>
+    </div>
+    <div class="userinfo-block color-5-no-grad">
+      <mat-icon>house</mat-icon>
+      <div class="d-inline-flex flex-column justify-content-center">
+        <span class="additional-info text-white">グループ</span>
+        <span class="big-info">{{loginUser.groupName}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div [@userinfoOverlay]="userInfoOpen ? 'show' : 'hide'" *ngIf="userInfoOpen" class="overlay-userinfo" (click)="userInfoTrigger()"></div>

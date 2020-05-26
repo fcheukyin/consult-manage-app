@@ -12,11 +12,16 @@ export class MessageService {
   openSnackBar(message: string, action: string, duration: number) {
     var config = new MatSnackBarConfig()
     config.duration = duration;
-    if (this.responsiveService.checkScreensize() == 'lg') {
-      config.horizontalPosition = 'end';
+    if (this.responsiveService.checkScreensize() == 'sm') {
+      config.horizontalPosition = 'center';
+    } else {
+      config.horizontalPosition = "start";
     }
-    config.horizontalPosition = "right";
     this._snackBar.open(message, action, config);
+  }
+
+  invalidAction() {
+    this.openSnackBar('不正操作', '閉じる', 2000);
   }
 
   dismissSnackBar() {

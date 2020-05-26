@@ -6,9 +6,9 @@ module.exports = function(app) {
     // Create a new Customer
     app.post('/api/employees', employees.create);
  
-    app.get('/api/employees', auth.checkIfAuthenicated, employees.findAll);
+    app.get('/api/employees/:loginId', auth.checkIfAuthenicated, employees.findAll);
  
-    app.get('/api/employees/:employeeId', auth.checkIfAuthenicated, employees.findById);
+    app.get('/api/employees/search/:employeeId', auth.checkIfAuthenicated, employees.findById);
 
     app.put('/api/employees', employees.update);
 

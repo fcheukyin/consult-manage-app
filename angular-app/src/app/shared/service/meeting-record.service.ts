@@ -23,9 +23,20 @@ export class MeetingRecordService {
     return this.http.get<MeetingRecord[]>(this.apiUrl + id);
   }
 
+  getRecentRecords(id: number): Observable<MeetingRecord[]> {
+    return this.http.get<MeetingRecord[]>(this.apiUrl + "recent/" + id);
+  }
+
   createRecord(record: MeetingRecord) {
     return this.http.post<any>(this.apiUrl + 'create', {record});
   }
 
+  updateRecord(record: MeetingRecord) {
+    return this.http.post<any>(this.apiUrl + 'update', {record});
+  }
+
+  deleteRecord(record: MeetingRecord) {
+    return this.http.get<any>(this.apiUrl + 'delete/' + record.id);
+  }
 
 }

@@ -1,0 +1,109 @@
+@import '../mixin';
+
+.dashboard-card {
+    @include info-container;
+
+    position: relative;
+
+    &.extend {
+        height: 250px;
+    }
+
+    .card-title {
+        position: relative;
+        font-size: 1.3em;
+        font-weight: 750;
+        height: 3em;
+        color: #fff;
+        border-top-right-radius: .5em;
+        border-top-left-radius: .5em;
+
+        &.big-title {
+            height: 75px;
+        }
+
+        span {
+            position: absolute;
+            top: .8em;
+            left: .5em;
+        }
+    }
+
+    .quick-action {
+        position: absolute;
+        width: 75%;
+        height: 100px;
+        left: 12.5%;
+        top: 55px;
+
+        .action {
+            border-radius: .7em;
+            height: 80px;
+            margin: 6px;
+            cursor: pointer;
+
+            .action-icon {
+                position: absolute;
+                left: 15%;
+                top: 10px;
+                transform: scale(1.5);
+            }
+            .action-name {
+                position: absolute;
+                left: 15%;
+                top: 45px;
+                font-size: 1.3em;
+                font-weight: 650;
+            }
+            &:hover {
+                .action-icon {
+                    filter: brightness(150%);
+                }
+                .action-name {
+                    filter: brightness(150%);
+                }
+            }
+        }
+    }
+
+    .timeline {
+        position: relative;
+        height: 200px;
+        padding: 0px 1.5em;
+        &:before {
+            content: '';
+            position: absolute;
+            left: 90px;
+            height: 100%;
+            width: 4px;
+            background-color: #ecf0f3;
+            z-index: 1;
+        }
+        .timeline-item {
+            position: relative;
+            height: 20px;
+            margin-top: 12.5px;
+            z-index: 99;
+            div {
+                display: inline-block;
+                font-weight: bold;
+                text-align: center;
+            }
+            .date {
+                width: calc(90px - 1.5em - 10px);
+            }
+            mat-icon {
+                transform: scale(.8);
+            }
+            .category {
+                width: 80px;
+                margin-left: 20px;
+                text-align: left;
+            }
+            .staff-name {
+                color: #817f7f;
+            }
+        }
+    }
+}
+

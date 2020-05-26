@@ -14,6 +14,8 @@ export class MeetingRecord {
         this.id = record.id;
         this.employeeName = record.employeeName;
         this.reviewerName = record.reviewerName;
+        this.employeeId = record.employeeId;
+        this.reviewerId = record.reviewerId;
         this.category = record.category;
         this.content = record.content;
         this.meetingDate = record.meetingDate;

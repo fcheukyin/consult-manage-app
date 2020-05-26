@@ -15,7 +15,7 @@ $toolbar-height: 64px;
 }
 
 .form-login {
-    @include mat-elevation(2);
+    @include mat-elevation(1);
     width: 80%;
     height: 400px;
     border-radius: .5em;

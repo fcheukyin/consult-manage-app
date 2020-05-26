@@ -1,6 +1,8 @@
 $toolbar-height: 64px;
+$sidenav-width: 64px;
 @media (max-width: 576px) {
     $toolbar-height: 56px;
+    $sidenav-width: 0;
 }
 
 .main-content {
@@ -13,7 +15,7 @@ mat-sidenav-content::-webkit-scrollbar {
 
 .mat-drawer {
     @media (max-width: 599px) {
-        width: 65vw !important;
+        width: 200px !important;
     }
 }
 
@@ -85,4 +87,111 @@ mat-sidenav-content::-webkit-scrollbar {
     .username {
         font-size: 1.2em;
     }
+}
+
+.sub-nav {
+    position: fixed;
+    background-color: #ffffff;
+    height: 50px;
+    width: calc(100vw - 64px);
+    border-bottom: solid 1px rgba(0, 0, 0, 0.12);
+    z-index: 999;
+
+    @media (max-width: 600px) {
+        width: 100vw;
+    }
+
+    .page-name {
+        font-weight: 750;
+    }
+
+    .sub-nav-btn {
+        background-color: #f3f6f9;
+        color: #80808f;
+        transition: all 150ms linear;
+        &:hover {
+            background-color: #e5eaee;
+            text-decoration: none;
+        }
+    }
+}
+
+.drawer-btn {
+    width: 100%;
+    height: 50px;
+}
+
+.username-wrapper {
+    display: inline-flex;
+    margin-left: .5em;
+    line-height: 1em;
+    font-size: .9em;
+    height: 25px;
+    width: 25px;
+    justify-content: center;
+    align-items: center;
+    border-radius: .5em;
+    background-color: #faa993;
+}
+
+.user-info {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 300px;
+    background-color: #ffffff;
+    z-index: 999;
+
+    .header {
+        font-size: 1.3em;
+        font-weight: bolder;
+    }
+    .user-pic {
+        position: relative;
+        height: 110px;
+        width: 110px;
+        font-size: 110px;
+
+        &:before {
+            content:'';
+            position: absolute;
+            right: 11px;
+            top: 11px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgb(89, 218, 89);
+        }
+    }
+    .userinfo-block {
+        position: relative;
+        height: 60px;
+        width: 90%;
+        border-radius: .5em;
+        margin-top: 1.2em;
+
+        mat-icon {
+            position: absolute;
+            top: calc(50% - 10px);
+            left: 20px;
+            color: #ffffff;
+            transform: scale(1.5);
+        }
+
+        div {
+            color: #ffffff !important;
+            position: absolute;
+            height: 60px;
+            left: 110px;
+        }
+    }
+}
+.overlay-userinfo {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: #000000;
+    z-index: 99;
 }

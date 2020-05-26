@@ -5,7 +5,7 @@
                 <mat-icon aria-hidden="false" aria-label="icon" class="mr-1">person</mat-icon>
                 <mat-form-field>
                     <mat-label>名前</mat-label>
-                    <input matInput (focus)="setOptions('name')" [(ngModel)]="filter.name" [matAutocomplete]="auto">
+                    <input matInput (keyup)="setOptions('name')" (focus)="setOptions('name')" [(ngModel)]="filter.name" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                             {{option}}
@@ -17,7 +17,7 @@
                 <mat-icon aria-hidden="false" aria-label="icon" class="mr-1">group</mat-icon>
                 <mat-form-field>
                     <mat-label>グループ</mat-label>
-                    <input matInput (focus)="setOptions('group')" [(ngModel)]="filter.groupName" [matAutocomplete]="auto">
+                    <input matInput (keyup)="setOptions('group')" (focus)="setOptions('group')" [(ngModel)]="filter.groupName" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         {{option}}
@@ -29,7 +29,7 @@
                 <mat-icon aria-hidden="false" aria-label="icon" class="mr-1">group</mat-icon>
                 <mat-form-field>
                     <mat-label>所属</mat-label>
-                    <input matInput (focus)="setOptions('unit')" [(ngModel)]="filter.unitName" [matAutocomplete]="auto">
+                    <input matInput (keyup)="setOptions('unit')" (focus)="setOptions('unit')" [(ngModel)]="filter.unitName" [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                         {{option}}
@@ -44,7 +44,7 @@
                     <mat-label>最終面談日(開始)</mat-label>
                     <input matInput [matDatepicker]="startPicker" [(ngModel)]="filter.lastMeetingStart">
                     <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-                    <mat-datepicker touchUi #startPicker></mat-datepicker>
+                    <mat-datepicker [touchUi]="datepickerTouchUi" #startPicker></mat-datepicker>
                 </mat-form-field>
             </div>
             <div class="col-md-6 col-sm-12">
@@ -53,7 +53,7 @@
                     <mat-label>最終面談日(終了)</mat-label>
                     <input matInput [matDatepicker]="endPicker" [(ngModel)]="filter.lastMeetingEnd">
                     <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-                    <mat-datepicker touchUi #endPicker></mat-datepicker>
+                    <mat-datepicker [touchUi]="datepickerTouchUi" #endPicker></mat-datepicker>
                 </mat-form-field>
             </div>
         </div>

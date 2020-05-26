@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize(env.database, env.username, env.password, {
   host: env.host,
   dialect: env.dialect,
-  operatorsAliases: false,
+  // operatorsAliases: false,
   timezone: '+9:00',
   pool: {
     max: env.max,
@@ -30,6 +30,7 @@ db.groups = require('../model/group.js')(sequelize, Sequelize);
 db.directivities = require('../model/directivity.js')(sequelize, Sequelize);
 db.reviewers = require('../model/reviewer.js')(sequelize, Sequelize);
 db.transfer_records = require('../model/transfer-record.js')(sequelize, Sequelize);
+db.prefectures = require('../model/prefecture.js')(sequelize, Sequelize);
 
 db.employees.hasMany(db.meeting_records, {foreignKey: 'id', targetKey: 'employeeId'});
 db.meeting_records.belongsTo(db.employees, {foreignKey: 'employeeId', targetKey: 'id'});
@@ -40,6 +41,9 @@ db.positions.hasMany(db.employees, {foreignKey: 'id', targetKey: 'positionId'});
 
 db.employees.belongsTo(db.units, {foreignKey: 'unitId', targetKey: 'id'});
 db.units.hasMany(db.employees, {foreignKey: 'id', targetKey: 'unitId'});
+
+db.employees.belongsTo(db.prefectures, {foreignKey: 'prefectureId', targetKey: 'id'});
+db.prefectures.hasMany(db.employees, {foreignKey: 'id', targetKey: 'prefectureId'});
 
 db.employees.belongsTo(db.motivations, {foreignKey: 'motivationId', targetKey: 'id'});
 db.motivations.hasMany(db.employees, {foreignKey: 'id', targetKey: 'motivationId'});

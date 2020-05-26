@@ -1,7 +1,7 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked} from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked, AfterViewInit} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, delay } from 'rxjs/operators';
 
 import { EmployeeService } from '../shared/service/employee.service';
 import { MeetingRecordService } from '../shared/service/meeting-record.service';
@@ -13,8 +13,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { TransferRecordListComponent } from '../transfer-record-list/transfer-record-list.component';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ResponsiveService } from '../shared/service/responsive.service';
-import { MeetingRecordDetailsComponent } from '../meeting-record-details/meeting-record-details.component.spec';
+import { MeetingRecordDetailsComponent } from '../meeting-record-details/meeting-record-details.component';
 import { CreateMeetingRecordComponent } from '../create-meeting-record/create-meeting-record.component';
+import { AuthService } from '../shared/service/auth.service';
+import { MessageService } from '../shared/service/message.service';
+import { Reviewer } from '../shared/reviewer.model';
 
 @Component({
   selector: 'app-employee-detail',
@@ -30,6 +33,9 @@ export class EmployeeDetailComponent implements OnInit{
   transfers: TransferRecord[];
   dataReady = false;
   recordCreated: number;
+  recordUpdated: number;
+  recordDeleted: number;
+  loginUser: Reviewer;
 
   constructor(private employeeService: EmployeeService,
               private route: ActivatedRoute,
@@ -37,10 +43,13 @@ export class EmployeeDetailComponent implements OnInit{
               private meetingRecordService: MeetingRecordService,
               private transferRecordService: TransferRecordService,
               public dialog: MatDialog,
-              private responsiveService: ResponsiveService) {}
+              private responsiveService: ResponsiveService,
+              private authService: AuthService,
+              private messageService: MessageService) {}
               
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
+    this.loginUser = this.authService.getUserInfo()
     this.getEmployee(parseInt(id));
     this.getMeetingRecords(parseInt(id));
     this.getTransferRecords(parseInt(id));
@@ -72,12 +81,30 @@ export class EmployeeDetailComponent implements OnInit{
                                                     if (records.length != 0){
                                                       this.transfers = records;
                                                     }
+                                                    this.checkLoginUser();
                                                     this.dataReady = !this.dataReady;
                                                   });
   }
 
   scroll() {
     console.log(this.page.nativeElement.offsetTop);
+  }
+
+  checkLoginUser() {
+    if (this.selectedEmployee?.reviewerId != this.loginUser.id) {
+      if (this.transfers) {
+        if (!this.transfers.some(record => record.oldReviewerId == this.loginUser.id)
+            || !this.transfers.some(record => record.newReviewerId == this.loginUser.id)) {
+            this.router.navigate(['employees']);
+            this.messageService.invalidAction();
+            return
+        } else {
+          return
+        }
+      }
+      this.router.navigate(['employees']);
+      this.messageService.invalidAction();
+    }
   }
 
   showTransferRecord() {
@@ -101,7 +128,20 @@ export class EmployeeDetailComponent implements OnInit{
     config.position = {};
     config.data = record;
     config.panelClass = "meeting-record-dialog-container";
-    this.dialog.open(MeetingRecordDetailsComponent, config);
+    this.dialog.open(MeetingRecordDetailsComponent, config).afterClosed()
+    .subscribe(result => {
+      if (result) {
+        this.recordCreated = null;
+        this.recordUpdated = null;
+        if (result.action === 'updated') {
+          this.recordUpdated = result.updateId;
+          this.getMeetingRecords(this.selectedEmployee.id);
+        }
+        if (result.action === 'deleted') {
+          this.recordDeleted = result.deletedId;
+        }
+      }
+    });
   }
 
   showCreateRecord() {
@@ -114,11 +154,12 @@ export class EmployeeDetailComponent implements OnInit{
       config.maxHeight = "600px"
     }
     config.position = {};
-    config.data = this.selectedEmployee.id;
+    config.data = {employeeId: this.selectedEmployee.id};
     config.panelClass = "transfer-dialog-container";
     this.dialog.open(CreateMeetingRecordComponent, config).afterClosed()
       .subscribe(result => {
         if (result) {
+          this.recordUpdated = null;
           this.recordCreated = result.event;
           this.getMeetingRecords(this.selectedEmployee.id);
         }

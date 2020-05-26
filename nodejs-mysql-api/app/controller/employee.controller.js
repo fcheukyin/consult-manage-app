@@ -1,4 +1,5 @@
 const db = require('../config/db.config.js');
+const { Op } = require("sequelize");
 const Employee = db.employees;
 const MeetingRecord = db.meeting_records;
 const Position = db.positions;
@@ -7,6 +8,8 @@ const Motivation = db.motivations;
 const Charm = db.charms;
 const Directivity = db.directivities;
 const Group = db.groups;
+const TransferRecord = db.transfer_records;
+const Prefecture = db.prefectures;
  
 exports.create = (req, res) => {  
   let employee = req.body;
@@ -17,49 +20,67 @@ exports.create = (req, res) => {
  
 // Fetch all Customers
 exports.findAll = (req, res) => {
-  var employeeList;
-  var a = 1;
-  var meetingRecords;
-  Employee.findAll({
-                    order: [['id', 'ASC']],
-                    include:[
-                              {model: MeetingRecord, attributes:[], require: false},
-                              {model: Position, attributes:[]},
-                              {model: Motivation, attributes:[]},
-                              {model: Unit, attributes:[]},
-                              {model: Charm, attributes:[]},
-                              {model: Directivity, attributes:[]},
-                              {model: Group, attributes:[]}
-                            ],
-                    attributes:{include:[
-                                          [db.sequelize.col('position.name'),'positionName'],
-                                          [db.sequelize.col('unit.name'),'unitName'],
-                                          [db.sequelize.col('motivation.name'),'motivationName'],
-                                          [db.sequelize.col('charm.name'),'charmName'],
-                                          [db.sequelize.col('directivity.name'),'directivityName'],
-                                          [db.sequelize.col('group.name'),'groupName']
-                                        ]},
-                    raw:true}).then(employees => {
-    MeetingRecord.findAll({
-      order: [['meetingDate', 'DESC']],
-      // include: [{model: db.employees, attributes:[]}],
-      // attributes: {include:[ ['meeting_date','lastMeetingDate']]},
-      group: [db.sequelize.col('meeting_record.employee_id')],
-      attributes: {include:[  
-                              [db.sequelize.fn('MAX', db.sequelize.col('meeting_record.meeting_date')), 'lastMeetingDate']
-                          ]},
-      raw:true
-    }).then(records => {
-        for (let i = 0; i < Object.keys(employees).length; i++) {
-          for (let j = 0; j < Object.keys(records).length; j++) {
-            if (employees[i].id == records[j].employeeId) {
-              employees[i].lastMeeting = records[j].lastMeetingDate;
-            }
-          }
-        }
-        res.json(employees);
+  var targetEmployee = [];
+  TransferRecord.findAll({
+                    where: {
+                      [Op.or]: {
+                        oldReviewerId: req.params.loginId,
+                        newReviewerId: req.params.loginId
+                      }
+                    }
+  }).then(record => {
+    record.forEach(item => {
+      targetEmployee.push(item.employeeId);
     });
-  });
+    Employee.findAll({
+          where: {
+            [Op.or]: {
+              reviewerId: req.params.loginId,
+              id: {[Op.or]: targetEmployee}
+            }
+          },
+          order: [['id', 'ASC']],
+          include:[
+                    {model: MeetingRecord, attributes:[], require: false},
+                    {model: Position, attributes:[]},
+                    {model: Motivation, attributes:[]},
+                    {model: Unit, attributes:[]},
+                    {model: Charm, attributes:[]},
+                    {model: Directivity, attributes:[]},
+                    {model: Group, attributes:[]},
+                    {model: Prefecture, attributes:[]}
+                  ],
+          attributes:{include:[
+                                [db.sequelize.col('position.name'),'positionName'],
+                                [db.sequelize.col('unit.name'),'unitName'],
+                                [db.sequelize.col('motivation.name'),'motivationName'],
+                                [db.sequelize.col('charm.name'),'charmName'],
+                                [db.sequelize.col('directivity.name'),'directivityName'],
+                                [db.sequelize.col('group.name'),'groupName'],
+                                [db.sequelize.col('prefecture.name'),'prefectureName']
+                              ]},
+          raw:true}).then(employees => {
+    MeetingRecord.findAll({
+    order: [['meetingDate', 'DESC']],
+    // include: [{model: db.employees, attributes:[]}],
+    // attributes: {include:[ ['meeting_date','lastMeetingDate']]},
+    group: [db.sequelize.col('meeting_record.employee_id')],
+    attributes: {include:[  
+                    [db.sequelize.fn('MAX', db.sequelize.col('meeting_record.meeting_date')), 'lastMeetingDate']
+                ]},
+    raw:true
+    }).then(records => {
+    for (let i = 0; i < Object.keys(employees).length; i++) {
+    for (let j = 0; j < Object.keys(records).length; j++) {
+    if (employees[i].id == records[j].employeeId) {
+    employees[i].lastMeeting = records[j].lastMeetingDate;
+    }
+    }
+    }
+    res.json(employees);
+    });
+    });
+  })
 };
  
 // Find a Customer by Id
@@ -77,7 +98,8 @@ exports.findById = (req, res) => {
               {model: Unit, attributes:[]},
               {model: Charm, attributes:[]},
               {model: Directivity, attributes:[]},
-              {model: Group, attributes:[]}
+              {model: Group, attributes:[]},
+              {model: Prefecture, attributes:[]}
             ],
     attributes:{include:[
                           [db.sequelize.col('position.name'),'positionName'],
@@ -85,7 +107,8 @@ exports.findById = (req, res) => {
                           [db.sequelize.col('motivation.name'),'motivationName'],
                           [db.sequelize.col('charm.name'),'charmName'],
                           [db.sequelize.col('directivity.name'),'directivityName'],
-                          [db.sequelize.col('group.name'),'groupName']
+                          [db.sequelize.col('group.name'),'groupName'],
+                          [db.sequelize.col('prefecture.name'),'prefectureName']
                         ]},
     raw:true}).then(employee => {
       employee.name = employee.firstName + employee.lastName;
