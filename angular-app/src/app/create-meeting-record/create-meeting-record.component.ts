@@ -80,7 +80,8 @@ export class CreateMeetingRecordComponent implements OnInit{
             this.formGroup.patchValue({
                 category: this.updateRecord.category,
                 meetingDate: this.updateRecord.meetingDate,
-                content: this.updateRecord.content.replace(new RegExp('<br>', 'g'), '\r\n')
+                // content: this.updateRecord.content.replace(new RegExp('<br>', 'g'), '\r\n')
+                content: this.updateRecord.content
             });
         }
 
@@ -130,7 +131,8 @@ export class CreateMeetingRecordComponent implements OnInit{
             id: null,
             category: this.formGroup.controls.category.value,
             meetingDate: this.formGroup.controls.meetingDate.value,
-            content: this.formGroup.controls.content.value.replace(/(?:\r\n|\r|\n)/g, '<br>'),
+            // content: this.formGroup.controls.content.value.replace(/(?:\r\n|\r|\n)/g, '<br>'),
+            content: this.formGroup.controls.content.value,
             employeeId:  this.employeeId,
             reviewerId: this.reviewerId,
             reviewerName: null,

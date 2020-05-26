@@ -45,5 +45,25 @@
                 </div>
             </div>
         </div>
+        <div class="dashboard-card">
+            <div class="card-title color-4">
+                <span>カレンダー</span>
+            </div>
+            <div class="pl-2 pr-2 pb-2">
+                <full-calendar
+                locale="ja"
+                [events]="events"
+                themeSystem="bootstrap"
+                defaultView="dayGridMonth"
+                eventTextColor="#ffffff"
+                eventBackgroundColor="#bf9eca"
+                eventBorderColor="#bf9eca"
+                eventLimit="2"
+                eventLimitText="件"
+                [buttonText]="buttonText"
+                [header]="header"
+                [plugins]="calendarPlugins"></full-calendar>
+            </div>
+        </div>
     </div>
 </div>

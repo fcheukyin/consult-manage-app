@@ -23,6 +23,7 @@ export class MeetingRecordDetailsComponent {
                 private authService: AuthService, private responsiveService: ResponsiveService,
                 private dialog: MatDialog) {
         this.record = data;
+        this.record.content = this.record.content;
         this.userId = this.authService.getUserInfo().id;
     }
 

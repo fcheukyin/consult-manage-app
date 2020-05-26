@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { MatModule } from './mat-config/mat.module';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -25,7 +26,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     CoreModule,
     SharedModule,
     AppRoutingModule,
-    MatModule
+    MatModule,
+    FullCalendarModule
   ],
   declarations: [
     AppComponent,

@@ -12,6 +12,9 @@ import { Reviewer } from '../shared/reviewer.model';
 import { CreateMeetingRecordComponent } from '../create-meeting-record/create-meeting-record.component';
 import { Router } from '@angular/router';
 
+import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -23,6 +26,21 @@ export class DashboardComponent implements OnInit{
     timestampColor: number[] = [];
     loginUser: Reviewer
     dataReady = false;
+    
+    calendarPlugins = [dayGridPlugin, timeGridPlugin];
+    events = []
+    buttonText = {
+      today:    '今日',
+      month:    '月',
+      week:     '週',
+      day:      '日',
+      list:     'リスト'
+    };
+    header = {
+      left:   'title',
+      center: '',
+      right:  'today prev,next'
+    }
 
     constructor(private meetingRecordService: MeetingRecordService, private responsiveService: ResponsiveService,
                 private authService: AuthService, private dialog: MatDialog,
@@ -34,6 +52,12 @@ export class DashboardComponent implements OnInit{
         .subscribe(record => {
             this.timeline = record;
             this.getTimestampColor();
+            record.forEach(item => {
+              this.events.push({
+                title: item.category,
+                start: item.meetingDate.toString()
+              });
+            })
             this.dataReady = true
         });
     }

@@ -1,3 +1,5 @@
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
 @import './keyframes';
 
 $color-1: #fbb688;
@@ -295,6 +297,10 @@ div {
         font-size: 1.5em;
         font-weight: 400;
     }
+}
+
+.with-newlines {
+    white-space: pre-wrap;
 }
 
 .slidein {

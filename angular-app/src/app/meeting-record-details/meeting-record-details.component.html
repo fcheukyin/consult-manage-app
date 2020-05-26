@@ -37,7 +37,7 @@
     </mat-menu>
 </div>
 <mat-dialog-content>
-    <div class="dialog-content" [innerHTML]="record.content" *ngIf="!deleteAlert"></div>
+    <div class="dialog-content with-newlines" *ngIf="!deleteAlert">{{record.content}}</div>
     <div class="dialog-content alert" *ngIf="deleteAlert" >
         <div class="d-flex flex-column align-items-center justify-content-around h-100">
             <mat-icon class="big-mat-icon color-1">error</mat-icon>
