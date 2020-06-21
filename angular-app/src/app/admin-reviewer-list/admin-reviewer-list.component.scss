@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+
+@mixin info-container {
+    @include mat-elevation-transition;
+    @include mat-elevation(1);
+    width: 100%;
+    border-radius: .5em;
+    background-color: #fff;
+    margin: 1em;
+}
+
+table {
+    width: 95%;
+}
+
+mat-paginator {
+    width: 95%;
+}
+
+.table-container {
+    @include info-container;    
+}

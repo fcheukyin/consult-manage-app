@@ -16,10 +16,10 @@
                 <mat-chip-list>
 
                     <mat-chip class="disable-select" [ngClass]="{
-                        'color-4': selectedEmployee.motivationName === 'ドライブ',
-                        'color-3': selectedEmployee.motivationName === 'ボランティア',
-                        'color-2': selectedEmployee.motivationName === 'アナライズ',
-                        'color-1': selectedEmployee.motivationName === 'クリエイト'
+                        'color-4': selectedEmployee.motivationName === 'ドライブ' || selectedEmployee.motivationName === 'ドライブ/アナライズ',
+                        'color-3': selectedEmployee.motivationName === 'ボランティア' || selectedEmployee.motivationName === 'ドライブ/クリエイト',
+                        'color-2': selectedEmployee.motivationName === 'アナライズ' || selectedEmployee.motivationName === 'ボランティア/アナライズ',
+                        'color-1': selectedEmployee.motivationName === 'クリエイト' || selectedEmployee.motivationName === 'ボランティア/クリエイト'
                     }" selected>
                         {{selectedEmployee.motivationName}}
                     </mat-chip>
@@ -106,14 +106,10 @@
     </div>
 </div>
 <button mat-fab color="primary" class="bottom-right-fab bottom-1" matTooltip="新規面談" matTooltipPosition="left"
-(click)="showCreateRecord()" *ngIf="loginUser.id == selectedEmployee?.reviewerId">
+(click)="showCreateRecord()">
     <mat-icon>post_add</mat-icon>
 </button>
-<button *ngIf="transfers" mat-fab color="primary" class="bottom-right-fab"
-matTooltip="異動履歴" matTooltipPosition="left" (click)="showTransferRecord()"
-[ngClass]="{
-    'bottom-1': loginUser.id != selectedEmployee?.reviewerId,
-    'bottom-2': loginUser.id == selectedEmployee?.reviewerId
-}">
+<button *ngIf="transfers" mat-fab color="primary" class="bottom-right-fab bottom-2"
+matTooltip="異動履歴" matTooltipPosition="left" (click)="showTransferRecord()">
     <mat-icon>compare_arrows</mat-icon>
 </button>

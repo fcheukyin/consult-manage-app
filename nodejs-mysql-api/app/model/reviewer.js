@@ -1,21 +1,23 @@
 module.exports = (sequelize, Sequelize) => {
     const Reviewer = sequelize.define('reviewer', {
         firstName: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            field: 'first_name'
         },
         lastName: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
+            field: 'last_name'
         },
         firstnameKana: {
             type: Sequelize.STRING,
-            field: 'firstname_kana'
+            field: 'first_name_ka'
         },
         lastnameKana: {
             type: Sequelize.STRING,
-            field: 'lastname_kana'
+            field: 'last_name_ka'
         },
         email: {
-            type: Sequelize.STRING
+            type: Sequelize.STRING,
         },
         password: {
             type: Sequelize.STRING
@@ -26,20 +28,23 @@ module.exports = (sequelize, Sequelize) => {
         },
         unitId: {
             type: Sequelize.INTEGER,
-            field: 'unit_id'
+            field: 'attachment_id'
         },
         positionId: {
             type: Sequelize.INTEGER,
             field: 'position_id'
         },
         deletedAt: {
-            type: Sequelize.DATE
+            type: Sequelize.DATE,
+            field: 'deleted_date'
         },
         createdAt: {
-            type: Sequelize.DATE
+            type: Sequelize.DATE,
+            field: 'created_date'
         },
         updatedAt: {
-            type: Sequelize.DATE
+            type: Sequelize.DATE,
+            field: 'updated_date'
         }
     });
 

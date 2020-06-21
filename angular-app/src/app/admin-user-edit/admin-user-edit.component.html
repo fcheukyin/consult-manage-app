@@ -1,0 +1,224 @@
+<div class="d-flex justify-content-center align-items-center mt-4 admin-theme">
+    <div class="form-container">
+        <div class="header p-3 d-flex justify-content-between align-items-center color-3  text-white">
+            <span class="title">情報編集 - {{user?.name}}</span>
+            <div class="button-area">
+                <span class="d-none d-sm-inline d-md-inline d-lg-inline">
+                    <button mat-raised-button color="accent"
+                    [routerLink]="'/admin/' + pageMode">
+                        戻る
+                    </button>
+                    <button mat-raised-button color="warn" (click)="patchInput()">リセット</button>
+                    <button mat-raised-button color="primary"
+                    (click)="onSubmit()"
+                    [disabled]="!formGroup.valid" >
+                        保存
+                    </button>
+                </span>
+                <span class="d-inline d-sm-none d-md-none d-lg-none">
+                    <button mat-icon-button color="basic"
+                    [routerLink]="'/admin/' + pageMode">
+                        <mat-icon>chevron_left</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="patchInput()">
+                        <mat-icon>delete_sweep</mat-icon>
+                    </button>
+                    <button mat-icon-button color="basic"
+                    (click)="onSubmit()"
+                    [disabled]="!formGroup.valid" >
+                        <mat-icon>save</mat-icon>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <form [formGroup]="formGroup">
+        <mat-tab-group mat-align-tabs="center" class="tab">
+            <mat-tab label="個人情報">
+                <div class="form-area p-3">
+                    <p>
+                        <mat-form-field appearance="outline" style="width:10em">
+                            <mat-label>名前</mat-label>
+                            <input matInput formControlName="firstName" type="text" required>
+                            <mat-error *ngIf="formGroup.controls.firstName.invalid">{{getErrorMessage('firstName')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width:10em">
+                            <mat-label>苗字</mat-label>
+                            <input matInput formControlName="lastName" type="text" required>
+                            <mat-error *ngIf="formGroup.controls.lastName.invalid">{{getErrorMessage('lastName')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline" style="width:10em">
+                            <mat-label>名前(カナ)</mat-label>
+                            <input matInput formControlName="firstnameKana" type="text" required>
+                            <mat-error *ngIf="formGroup.controls.firstnameKana.invalid">{{getErrorMessage('firstnameKana')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width:10em">
+                            <mat-label>苗字(カナ)</mat-label>
+                            <input matInput formControlName="lastnameKana" type="text" required>
+                            <mat-error *ngIf="formGroup.controls.lastnameKana.invalid">{{getErrorMessage('lastnameKana')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p *ngIf="pageMode == 'employees'">
+                        <mat-form-field appearance="outline" style="width:10em">
+                            <mat-label>通勤路線</mat-label>
+                            <input matInput formControlName="route" type="text" required>
+                            <mat-error *ngIf="formGroup.controls.route.invalid">{{getErrorMessage('route')}}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" style="width:10em">
+                            <mat-label>最寄り駅</mat-label>
+                            <input matInput formControlName="station" type="text" required>
+                            <mat-error *ngIf="formGroup.controls.station.invalid">{{getErrorMessage('station')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p *ngIf="pageMode == 'employees'">
+                        <mat-form-field appearance="outline" style="width: 100%">
+                            <mat-label>家族構成</mat-label>
+                            <input matInput formControlName="family" type="text">
+                            <mat-error *ngIf="formGroup.controls.family.invalid">{{getErrorMessage('family')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p *ngIf="pageMode !== 'reviewers'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>退職日</mat-label>
+                            <input matInput [matDatepicker]="datePicker1" formControlName="deletedAt">
+                            <mat-datepicker-toggle matSuffix [for]="datePicker1"></mat-datepicker-toggle>
+                            <mat-datepicker [touchUi]="datepickerTouchUi" #datePicker1></mat-datepicker>
+                            <mat-error *ngIf="formGroup.controls.deletedAt.invalid">{{getErrorMessage('deletedAt')}}</mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button color="warn"
+                        [disabled]="formGroup.controls.deletedAt.invalid"
+                        class="ml-2" (click)="deleteUser()">
+                            確定
+                        </button>
+                    </p>
+                </div>
+            </mat-tab>
+            <mat-tab label="心理構成" *ngIf="pageMode === 'employees'">
+                <div class="form-area p-3">
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>モチベーション</mat-label>
+                            <mat-select formControlName="motivationId" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let option of motivations" [value]="option.id">
+                                {{option.motivationName}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.motivationId.invalid">選択してください</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>指向性</mat-label>
+                            <mat-select formControlName="directivityId" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let option of directivities" [value]="option.id">
+                                {{option.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.directivityId.invalid">選択してください</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>組織の魅力</mat-label>
+                            <mat-select formControlName="charmId" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let option of charms" [value]="option.id">
+                                {{option.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.charmId.invalid">選択してください</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </mat-tab>
+            <mat-tab label="所属">
+                <div class="form-area p-3">
+                    <p>
+                        <mat-form-field appearance="outline">
+                        <mat-label>職位</mat-label>
+                        <mat-select formControlName="positionId" required>
+                            <mat-option></mat-option>
+                            <mat-option *ngFor="let position of positions" [value]="position.id">
+                            {{position.name}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formGroup.controls.positionId.invalid">選択してください</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>ユニット</mat-label>
+                            <mat-select formControlName="unitId" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let unit of units" [value]="unit.id">
+                                {{unit.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.unitId.invalid">選択してください</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>グループ</mat-label>
+                            <mat-select formControlName="groupId" required>
+                                <mat-option></mat-option>
+                                <mat-option *ngFor="let group of groups" [value]="group.id">
+                                {{group.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="formGroup.controls.groupId.invalid">選択してください</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p *ngIf="pageMode === 'employees'">
+                        <mat-form-field appearance="outline">
+                            <mat-label>評価者</mat-label>
+                            <input matInput formControlName="reviewerId" type="text" [matAutocomplete]="auto">
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option *ngFor="let option of reviewerAutoComplete | async" [value]="option.name">
+                                    {{option.name}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error *ngIf="formGroup.controls.reviewerId.invalid">{{getErrorMessage('reviewerId')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </mat-tab>
+            <mat-tab label="アカウント情報" *ngIf="pageMode === 'reviewers'">
+                <div class="form-area p-3">
+                    <p>
+                        <mat-form-field appearance="outline" *ngIf="pageMode === 'reviewers'">
+                            <mat-label>メールアドレス</mat-label>
+                            <input matInput formControlName="email" type="email" required>
+                            <mat-error *ngIf="formGroup.controls.email.invalid">{{getErrorMessage('email')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="outline">
+                            <mat-label>パスワード</mat-label>
+                            <input matInput formControlName="password" type="password" required>
+                            <mat-error *ngIf="formGroup.controls.password.invalid">{{getErrorMessage('password')}}</mat-error>
+                        </mat-form-field>
+                    </p>
+                    <mat-divider></mat-divider>
+                    <p class="mt-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>アカウント停止日</mat-label>
+                            <input matInput [matDatepicker]="datePicker2" formControlName="deletedAt">
+                            <mat-datepicker-toggle matSuffix [for]="datePicker2"></mat-datepicker-toggle>
+                            <mat-datepicker [touchUi]="datepickerTouchUi" #datePicker2></mat-datepicker>
+                            <mat-error *ngIf="formGroup.controls.deletedAt.invalid">{{getErrorMessage('deletedAt')}}</mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button color="warn"
+                        [disabled]="formGroup.controls.deletedAt.invalid"
+                        class="ml-2" (click)="deleteUser()">
+                            確定
+                        </button>
+                    </p>
+                </div>
+            </mat-tab>
+          </mat-tab-group>
+        </form>
+    </div>
+</div>

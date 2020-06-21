@@ -24,3 +24,17 @@
         </div>
     </div>
 </div>
+<div *ngIf="loggingIn" class="logging-in d-flex flex-column justify-content-center align-items-center">
+    <span class="font-weight-bold mb-2 login-word">
+        <div class="delay-0">ロ</div>
+        <div class="delay-1">グ</div>
+        <div class="delay-2">イ</div>
+        <div class="delay-3">ン</div>
+        <div class="delay-4">中</div>
+    </span>
+    <mat-progress-spinner 
+        color="primary" 
+        mode="indeterminate"
+        diameter="20">
+    </mat-progress-spinner>
+</div>

@@ -9,6 +9,7 @@ export class RouteService {
     
     @Output() routeTitle: EventEmitter<any> = new EventEmitter();
     @Output() previousRoute: EventEmitter<any> = new EventEmitter();
+    @Output() pageMode: EventEmitter<any> = new EventEmitter();
 
     constructor() {}
 

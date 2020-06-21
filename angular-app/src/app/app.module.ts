@@ -19,6 +19,12 @@ import { TransferRecordListComponent } from './transfer-record-list/transfer-rec
 import { MeetingRecordDetailsComponent } from './meeting-record-details/meeting-record-details.component';
 import { CreateMeetingRecordComponent } from './create-meeting-record/create-meeting-record.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AdminMenuComponent } from './admin-menu/admin-menu.component';
+import { AdminRegistComponent } from './admin-regist/admin-regist.component';
+import { AdminEmployeeListComponent } from './admin-employee-list/admin-employee-list.component';
+import { AdminReviewerListComponent } from './admin-reviewer-list/admin-reviewer-list.component';
+import { AdminUserEditComponent } from './admin-user-edit/admin-user-edit.component';
 
 @NgModule({
   imports: [
@@ -39,7 +45,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     TransferRecordListComponent,
     MeetingRecordDetailsComponent,
     CreateMeetingRecordComponent,
-    DashboardComponent
+    DashboardComponent,
+    PageNotFoundComponent,
+    AdminMenuComponent,
+    AdminRegistComponent,
+    AdminEmployeeListComponent,
+    AdminReviewerListComponent,
+    AdminUserEditComponent
   ],
   bootstrap: [AppComponent]
 })

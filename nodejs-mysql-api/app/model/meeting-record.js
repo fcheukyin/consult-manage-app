@@ -6,7 +6,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         content: {
             type: Sequelize.TEXT,
-            field: 'content'
+            field: 'text'
         },
         employeeId: {
             type: Sequelize.INTEGER,
@@ -22,11 +22,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         createdAt: {
             type: Sequelize.DATE,
-            feild: 'createdAt'
+            field: 'created_date'
         },
         updatedAt: {
             type: Sequelize.DATE,
-            feild: 'updatedAt'
+            field: 'updated_date'
         },
 
     });

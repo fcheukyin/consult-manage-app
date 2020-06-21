@@ -30,6 +30,9 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatBadgeModule } from '@angular/material/badge';
 
 export const MY_FORMATS = {
   parse: {
@@ -72,7 +75,10 @@ export const MY_FORMATS = {
     MatDialogModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatBadgeModule
   ],
   providers: [
               {provide: MatPaginatorIntl, useClass: MatPaginatorIntlCtrl},
@@ -107,7 +113,10 @@ export const MY_FORMATS = {
     MatDialogModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatBadgeModule
   ],
 })
 export class MatModule { }

@@ -1,0 +1,170 @@
+<div class="row d-flex justify-content-center">
+    <div class="col d-flex justify-content-center">
+        <div class="table-container d-flex flex-column align-items-center">
+            <div class="header p-3 d-flex justify-content-between align-items-center color-2  text-white w-100">
+                <span class="title">CSV読み込み</span>
+                <div class="button-area">
+                    <span class="d-none d-sm-inline d-md-inline d-lg-inline">
+                        <button mat-raised-button color="warn" (click)="resetTable()" [disabled]="csvData.length==0">
+                            リセット
+                        </button>
+                        <button mat-raised-button color="primary"
+                        (click)="fileInput.click()">
+                            アップロード
+                        </button>
+                        <button mat-raised-button color="accent" (click)="onSubmit()"
+                        [disabled]="!checked"
+                        [matBadge]="countChecked" matBadgePosition="after"
+                        matBadgeColor="primary" [matBadgeHidden]="csvData.length==0">
+                            登録
+                        </button>
+                    </span>
+                    <span class="d-inline d-sm-none d-md-none d-lg-none">
+                        <button mat-icon-button color="warn" (click)="resetTable()">
+                            <mat-icon>delete_sweep</mat-icon>
+                        </button>
+                        <button mat-icon-button color="basic"
+                        (click)="fileInput.click()">
+                            <mat-icon>attach_file</mat-icon>
+                        </button>
+                        <button mat-icon-button color="basic" (click)="onSubmit()" [disabled]="!checked">
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <input hidden type="file" #fileInput (change)="readFile($event)" accept=".csv"/>
+            <table mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="checkbox">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="60px"></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <mat-checkbox [(ngModel)]="csvData[i].checkbox" (change)="toggleSubmitButton($event)"></mat-checkbox>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 名前 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.firstName+element.lastName" matTooltipPosition="below">
+                        {{element.firstName}}{{element.lastName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="kananame">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 名前(カナ) </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.firstnameKana+element.lastnameKana" matTooltipPosition="below">
+                        {{element.firstnameKana}}{{element.lastnameKana}}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="groupName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> グループ </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.groupName" matTooltipPosition="below">
+                        {{element.groupName}}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="unitName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 所属 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.unitName" matTooltipPosition="below">
+                        {{element.unitName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="positionName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 役職 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.positionName" matTooltipPosition="below">
+                        {{element.positionName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="prefectureName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 出身 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.prefectureName" matTooltipPosition="below">
+                        {{element.prefectureName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="charmName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 組織の魅力 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.charmName" matTooltipPosition="below">
+                        {{element.charmName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="directivityName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 指向性 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.directivityName" matTooltipPosition="below">
+                        {{element.directivityName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="motivationName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> モチベーション </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.motivationName" matTooltipPosition="below">
+                        {{element.motivationName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="family">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 家族構成 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.family" matTooltipPosition="below">
+                        {{element.family}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="reviewerName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 評価者 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.reviewerName" matTooltipPosition="below">
+                        {{element.reviewerName}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="route">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 通勤路線 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.route" matTooltipPosition="below">
+                        {{element.route}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="station">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> 最寄り駅 </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.station" matTooltipPosition="below">
+                        {{element.station}}
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header width="130px"> メールアドレス </th>
+                    <td mat-cell *matCellDef="let element"
+                    [matTooltip]="element.email" matTooltipPosition="below">
+                        {{element.email}}
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columnDisplay"></tr>
+                <tr mat-row *matRowDef="let row; columns: columnDisplay;"></tr>
+            </table>
+            <div *ngIf="dataLoading" class="m-5 d-flex justify-content-center">
+                <mat-progress-spinner 
+                    color="accent" 
+                    mode="indeterminate"
+                    diameter="60">
+                </mat-progress-spinner>
+            </div>
+            <mat-paginator [pageSize]="10" showFirstLastButtons></mat-paginator>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ import { Router, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { filter, map, pairwise } from 'rxjs/operators';
 import { RouteService } from './shared/service/route.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Subject } from 'rxjs';
 
 declare var $: any;
 
@@ -55,16 +56,25 @@ export class AppComponent implements OnInit{
   sidenavOpen = true
   userInfoOpen = false
   loginUser: Reviewer
-  pageTitle: String;
-  previousRoute: String;
+  adminMode: boolean
+  pageTitle: String
+  previousRoute: String
 
   constructor(private authService: AuthService, private router: Router, private location: Location,
               private routeService: RouteService) {
     this.onResize();
     if (this.authService.isLoggedIn) {
       this.loginUser = this.authService.getUserInfo();
-    }  
-    this.authService.change.subscribe(user => this.loginUser = user);
+    }
+    this.authService.change.subscribe(res => {
+        this.loginUser = res.user
+        this.adminMode = res.mode
+        if (this.loginUser && this.adminMode === false) {
+          this.loginUser.unitName = this.loginUser.unitName.split(/\s/)
+                                        .reduce((result,word) => result+=word.slice(0,1),'') 
+
+        }
+    });
     this.routeService.getTitle(this.router);
     this.routeService.getPreviousRoute(this.router);
   }
@@ -83,8 +93,9 @@ export class AppComponent implements OnInit{
     this.routeService.previousRoute.subscribe(prevRoute => {
       this.previousRoute = prevRoute;
     })
-
-    
+    if (this.authService.isLoggedIn()) {
+      this.adminMode = this.authService.isAdminMode();
+    }
   }
 
   @HostListener('window:resize', ['$event'])

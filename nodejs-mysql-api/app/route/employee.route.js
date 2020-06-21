@@ -4,13 +4,15 @@ module.exports = function(app) {
     const auth = require('../controller/auth.controller.js');
  
     // Create a new Customer
-    app.post('/api/employees', employees.create);
+    app.post('/api/admin/employees/import', employees.create);
  
-    app.get('/api/employees/:loginId', auth.checkIfAuthenicated, employees.findAll);
+    app.get('/api/employees/:loginId', auth.checkIfAuthenicated, employees.findForUser);
  
     app.get('/api/employees/search/:employeeId', auth.checkIfAuthenicated, employees.findById);
 
-    app.put('/api/employees', employees.update);
+    app.get('/api/admin/employees', auth.checkIfAuthenicated, employees.findAll)
 
-    app.delete('/api/employees/:employeeId', employees.delete);
+    app.post('/api/employees/update', auth.checkIfAuthenicated, employees.update)
+
+    app.post('/api/admin/employees/delete', auth.checkIfAuthenicated, employees.delete)
 }

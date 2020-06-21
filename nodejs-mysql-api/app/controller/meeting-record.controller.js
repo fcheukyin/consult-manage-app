@@ -10,10 +10,10 @@ exports.findAllById = (req, res) => {
             {model: db.reviewers, attributes:[]}
         ],
         attributes:{include:[
-            [db.sequelize.col('employee.firstName'),'employeeFirstName'],
-            [db.sequelize.col('employee.lastName'),'employeeLastName'],
-            [db.sequelize.col('reviewer.firstName'),'reviewerFirstName'],
-            [db.sequelize.col('reviewer.lastName'),'reviewerLastName']
+            [db.sequelize.col('employee.first_name'),'employeeFirstName'],
+            [db.sequelize.col('employee.last_name'),'employeeLastName'],
+            [db.sequelize.col('reviewer.first_name'),'reviewerFirstName'],
+            [db.sequelize.col('reviewer.last_name'),'reviewerLastName']
           ]},
         raw: true
     }).then(records => {
@@ -35,10 +35,10 @@ exports.findRecent = (req, res) => {
             {model: db.reviewers, attributes:[]}
         ],
         attributes:{include:[
-            [db.sequelize.col('employee.firstName'),'employeeFirstName'],
-            [db.sequelize.col('employee.lastName'),'employeeLastName'],
-            [db.sequelize.col('reviewer.firstName'),'reviewerFirstName'],
-            [db.sequelize.col('reviewer.lastName'),'reviewerLastName']
+            [db.sequelize.col('employee.first_name'),'employeeFirstName'],
+            [db.sequelize.col('employee.last_name'),'employeeLastName'],
+            [db.sequelize.col('reviewer.first_name'),'reviewerFirstName'],
+            [db.sequelize.col('reviewer.last_name'),'reviewerLastName']
           ]},
         raw: true
     }).then(records => {

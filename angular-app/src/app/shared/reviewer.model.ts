@@ -17,7 +17,8 @@ export class Reviewer {
     createdAt: string;
     updatedAt: string;
     authToken: string;
-    expireIn: number
+    expireIn: number;
+    admin: boolean;
 
     constructor (reviewer: Reviewer) {
         this.id = reviewer.id;

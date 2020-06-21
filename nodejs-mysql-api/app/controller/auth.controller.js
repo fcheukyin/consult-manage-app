@@ -18,24 +18,25 @@ const { publicKey, privateKey } = generateKeyPairSync('rsa',
 }); 
 
 const Reviewer = db.reviewers;
-const Unit = db.units;
+const Attachment = db.attachments;
 const Group = db.groups;
 const Position = db.positions;
+const Admin = db.admins;
 
 exports.login = (req, res) => {
     const email = req.body.email,
           password = req.body.password;
           
     Reviewer.findOne({
-        where: {email: email, password: password},
+        where: {email: email, password: password, deletedAt: null},
         include:[
             {model: Position, attributes:[]},
-            {model: Unit, attributes:[]},
+            {model: Attachment, attributes:[]},
             {model: Group, attributes:[]}
           ],
         attributes:{include:[
                                 [db.sequelize.col('position.name'),'positionName'],
-                                [db.sequelize.col('unit.name'),'unitName'],
+                                [db.sequelize.col('attachment.name'),'unitName'],
                                 [db.sequelize.col('group.name'),'groupName']
                             ]},
         raw:true
@@ -52,7 +53,25 @@ exports.login = (req, res) => {
                 expireIn: 3600
             });
         } else {
-            res.status(401).send('invalid login');
+            Admin.findOne({
+                where: {email: email, password: password}
+            }).then(admin => {
+                if (admin) {
+                    const jwtToken = jwt.sign({}, privateKey, {
+                        algorithm: 'RS256',
+                        expiresIn: "1h",
+                        subject: admin.email
+                    });
+                    res.status(200).json({
+                        admin,
+                        authToken: jwtToken,
+                        expireIn: 3600
+                    });
+                } else {
+                    res.status(401).send('invalid login');
+
+                }
+            })
         }
     })    
 }

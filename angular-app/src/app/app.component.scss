@@ -1,12 +1,13 @@
 $toolbar-height: 64px;
 $sidenav-width: 64px;
-@media (max-width: 576px) {
-    $toolbar-height: 56px;
-    $sidenav-width: 0;
-}
+$toolbar-xs-height: 56px;
+$sidenav-xs-width: 0;
 
 .main-content {
     height: calc(100vh - #{$toolbar-height});
+    @media (max-width: 599px) {
+        height: calc(100vh - #{$toolbar-xs-height});
+    }
 }
 
 mat-sidenav-content::-webkit-scrollbar { 

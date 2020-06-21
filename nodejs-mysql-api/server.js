@@ -20,8 +20,14 @@ require('./app/route/auth.route.js')(app);
 require('./app/route/employee.route.js')(app);
 require('./app/route/meeting-record.route.js')(app);
 require('./app/route/group.route.js')(app);
-require('./app/route/unit.route.js')(app);
+require('./app/route/attachment.route.js')(app);
 require('./app/route/transfer-record.route.js')(app);
+require('./app/route/reviewer.route')(app);
+require('./app/route/position.route')(app);
+require('./app/route/motivation.route')(app);
+require('./app/route/prefecture.route')(app);
+require('./app/route/charm.route')(app);
+require('./app/route/directivity.route')(app);
  
 // Create a Server
 var server = app.listen(8080, function () {

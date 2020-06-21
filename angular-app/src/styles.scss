@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300&family=Poppins:wght@300&display=swap');
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';
 @import './keyframes';
@@ -20,8 +21,13 @@ $color-gradient-3: linear-gradient(to right, #66d1ae, #62c5d7);
 $color-gradient-4: linear-gradient(to right, #ab99ce, #bf9eca);
 $color-gradient-5: linear-gradient(to right, #f88b8b, #faa993);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+html, body { 
+    height: 100%;
+}
+body { 
+    margin: 0;
+    font-family: 'Poppins', 'Noto Sans JP', sans-serif !important;
+}
 
 a {
     color: #3699ff;
@@ -322,9 +328,14 @@ div {
     opacity: 0;
     border: 2px solid;
     border-radius: 50%;
-    border-color: $color-4;
     transform: translateX(-50%) translateY(-50%);
-    animation: ripple 1400ms linear infinite
+    animation: ripple 1400ms linear infinite;   
+}
+.ripple.color-1:before {
+    border-color: $color-1;
+}
+.ripple.color-4:before {
+    border-color: $color-4;
 }
 .fadein {
     animation: fadein 300ms linear forwards;

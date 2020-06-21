@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Employee } from '../shared/employee.model';
 import { Filter } from '../shared/filter.model';
 import { Unit } from '../shared/unit.model';
@@ -27,7 +27,7 @@ import * as moment from 'moment';
   templateUrl: './employee-list.component.html',
   styleUrls: ['./employee-list.component.scss']
 })
-export class EmployeeListComponent implements OnInit {
+export class EmployeeListComponent implements OnInit, OnDestroy {
 
   employees: Employee [];
   units: Unit [];
@@ -73,8 +73,12 @@ export class EmployeeListComponent implements OnInit {
     this.employeeFilter = MatTableFilter.ANYWHERE;
   }
 
+  ngOnDestroy() {
+    this.employeeService.resetFilter();
+  }
+
   getEmployees(): void {
-    this.employeeService.getEmployees().pipe(delay(3000))
+    this.employeeService.getEmployees().pipe(delay(1000))
                         .subscribe(employees =>
                                     { 
                                       for(let i = 0; i < employees.length; i++) {
@@ -112,7 +116,9 @@ export class EmployeeListComponent implements OnInit {
   }
 
   openFilterMenu(): void {
-    this.bottomSheet.open(MatBottomSheetFilter);
+    this.bottomSheet.open(MatBottomSheetFilter, {
+      data: {reviewerFilter: false}
+    });
   }
 
 }

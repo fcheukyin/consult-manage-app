@@ -1,0 +1,14 @@
+@import '~@angular/material/theming';
+@import '../mixin.scss';
+
+table {
+    width: 95%;
+}
+
+mat-paginator {
+    width: 95%;
+}
+
+.table-container {
+    @include info-container;    
+}

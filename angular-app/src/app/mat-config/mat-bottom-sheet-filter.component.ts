@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
 import { Employee } from '../shared/employee.model';
 import { Filter } from '../shared/filter.model';
 import { Unit } from '../shared/unit.model';
@@ -9,9 +9,11 @@ import { UnitService } from '../shared/service/unit.service';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet'
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet'
 import { FormControl } from '@angular/forms';
 import { ResponsiveService } from '../shared/service/responsive.service';
+import { AuthService } from '../shared/service/auth.service';
+import { ReviewerService } from '../shared/service/reviewer.service';
 
 
 
@@ -22,7 +24,7 @@ import { ResponsiveService } from '../shared/service/responsive.service';
 })
 export class MatBottomSheetFilter implements OnInit{
     
-    employees: Employee[];
+    employees: any[];
     units: Unit[];
     groups: Group[];
 
@@ -32,9 +34,12 @@ export class MatBottomSheetFilter implements OnInit{
     options: String[] = [];
     filteredOptions: Observable<String[]>;
     datepickerTouchUi: boolean;
+    adminMode: boolean;
 
     constructor(private employeeService: EmployeeService, private groupService: GroupService, private unitService: UnitService,
-                private bottomSheetRef: MatBottomSheetRef, private responsiveService: ResponsiveService) { }
+                private bottomSheetRef: MatBottomSheetRef, private responsiveService: ResponsiveService,
+                private authService: AuthService, private reviewerService: ReviewerService,
+                @Inject(MAT_BOTTOM_SHEET_DATA) public data: any) { }
     
     openLink(event: MouseEvent): void {
         this.bottomSheetRef.dismiss();
@@ -42,7 +47,8 @@ export class MatBottomSheetFilter implements OnInit{
     }
 
     getEmployees(): void {
-        this.employeeService.getEmployees()
+        if (this.adminMode) {
+            this.employeeService.getAllEmployees()
                             .subscribe(employees =>
                                         { 
                                           for(let i = 0; i < employees.length; i++) {
@@ -50,7 +56,27 @@ export class MatBottomSheetFilter implements OnInit{
                                           }
                                           this.employees = employees;
                                         });
-      }
+        } else {
+            this.employeeService.getEmployees()
+                                .subscribe(employees =>
+                                            { 
+                                              for(let i = 0; i < employees.length; i++) {
+                                                employees[i].name = employees[i].firstName + employees[i].lastName;
+                                              }
+                                              this.employees = employees;
+                                            });
+        }
+    }
+
+    getReviewers(): void {
+        this.reviewerService.getAllReviewers()
+                            .subscribe(reviewers => {
+                                for(let i = 0; i < reviewers.length; i++) {
+                                    reviewers[i].name = reviewers[i].firstName + reviewers[i].lastName;
+                                }
+                                this.employees = reviewers;
+                            })
+    }
     
     getUnits(): void {
         this.unitService.getUnits().subscribe(units => this.units = units);
@@ -94,14 +120,26 @@ export class MatBottomSheetFilter implements OnInit{
     }
 
     reset(): void {
-        this.employeeService.resetFilter();
+        if (this.data.reviewerFilter) {
+            this.reviewerService.resetFilter();
+        } else {
+            this.employeeService.resetFilter();
+        }
     }
 
     ngOnInit(): void{
-        this.getEmployees();
+        if (this.authService.isAdminMode()) {
+            this.adminMode = true;
+        }
+        if (this.data.reviewerFilter) {
+            this.getReviewers()
+            this.filter = this.reviewerService.getFilter();
+        } else {
+            this.getEmployees();
+            this.filter = this.employeeService.getFilter();
+        }
         this.getGroups();
         this.getUnits();
-        this.filter = this.employeeService.getFilter();
         this.datepickerTouchUi = this.responsiveService.datepickerTouchUi();
     }
 

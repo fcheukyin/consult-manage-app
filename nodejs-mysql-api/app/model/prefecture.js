@@ -5,11 +5,14 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       },
       createdAt: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        field: 'created_date'
       },
       updatedAt: {
-        type: Sequelize.DATE
-      }
+          type: Sequelize.DATE,
+          field: 'updated_date'
+      },
+      
     });
 
     return Prefecture;

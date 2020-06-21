@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+@import '../../keyframes.scss';
 
 $toolbar-height: 64px;
 @media (max-width: 576px) {
@@ -56,4 +57,40 @@ $toolbar-height: 64px;
 .login-img {
     max-width: 70%;
     height: auto;
+}
+
+.logging-in {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #fff;
+    z-index: 99;
+    filter: brightness(90%);
+}
+
+.login-word {
+    filter: brightness(100%);
+    div {
+        display: inline-block;
+        margin: 1px;
+        transform: translateX(30px) translateY(-30px);
+    }
+    .delay-0 {
+        animation: login-anime-1 1.5s linear infinite;
+    }
+    .delay-1 {
+        animation: login-anime-2 1.5s linear infinite;
+    }
+    .delay-2 {
+        animation: login-anime-3 1.5s linear infinite;
+    }
+    .delay-3 {
+        animation: login-anime-4 1.5s linear infinite;
+    }
+    .delay-4 {
+        animation: login-anime-5 1.5s linear infinite;
+    }
+    
 }

@@ -1,0 +1,29 @@
+export class CsvData {
+    checkbox: boolean;
+    name: string;
+    firstName: string;
+    lastName: string;
+    firstnameKana: string;
+    lastnameKana: string;
+    email: string;
+    password: string;
+    groupId: number;
+    groupName: String;
+    unitId: number;
+    unitName: String;
+    positionId: number;
+    positionName: String;
+    route: string;
+    station: string;
+    family: string;
+    prefectureId: number;
+    prefectureName: string;
+    directivityId: number;
+    directivityName: string;
+    charmId: number;
+    charmName: String;
+    motivationId: number;
+    motivationName: String;
+    reviewerId: number;
+    reviewerName: String;
+}

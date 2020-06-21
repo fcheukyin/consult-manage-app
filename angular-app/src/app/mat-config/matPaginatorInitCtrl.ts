@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
   })
 export class MatPaginatorIntlCtrl extends MatPaginatorIntl {
     itemsPerPageLabel = '表示件数:'; 
+    previousPageLabel = '前へ';
+    nextPageLabel = '次へ';
+    lastPageLabel = '最後へ';
+    firstPageLabel = '最初へ';
   
     getRangeLabel = function (page, pageSize, length) {
       if (length === 0 || pageSize === 0) {

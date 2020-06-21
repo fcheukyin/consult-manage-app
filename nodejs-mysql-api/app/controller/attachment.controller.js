@@ -1,10 +1,10 @@
 const db = require('../config/db.config.js');
-const Unit = db.units;
+const Attachment = db.attachments;
  
 exports.findAll = (req, res) => {
-  Unit.findAll({order: [['id', 'ASC']],
+  Attachment.findAll({order: [['id', 'ASC']],
                 attributes:{include:[
-                                        [db.sequelize.col('unit.name'),'name'],
+                                        [db.sequelize.col('attachment.name'),'name'],
                                     ]},
                 raw:true}).then(units => {
     res.json(units);

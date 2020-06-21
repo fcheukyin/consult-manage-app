@@ -14,7 +14,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         oldUnitId: {
             type: Sequelize.INTEGER,
-            field: 'old_unit_id'
+            field: 'old_attachment_id'
         },
         newReviewerId: {
             type: Sequelize.INTEGER,
@@ -26,7 +26,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         newUnitId: {
             type: Sequelize.INTEGER,
-            field: 'new_unit_id'
+            field: 'new_attachment_id'
         },
         transferDate: {
             type: Sequelize.DATE,
@@ -34,11 +34,11 @@ module.exports = (sequelize, Sequelize) => {
         },
         createdAt: {
             type: Sequelize.DATE,
-            feild: 'createdAt'
+            field: 'created_date'
         },
         updatedAt: {
             type: Sequelize.DATE,
-            feild: 'updatedAt'
+            field: 'updated_date'
         },
 
     });

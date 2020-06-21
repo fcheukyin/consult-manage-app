@@ -70,7 +70,7 @@ export class CreateMeetingRecordComponent implements OnInit{
             for(let i = 0; i < employees.length; i++) {
                 employees[i].name = employees[i].firstName + employees[i].lastName;
             }
-            this.employees = employees.filter(employee => employee.reviewerId == this.reviewerId);
+            this.employees = employees;
             if (this.employeeId){
                 this.formGroup.patchValue({employeeName: this.employees?.find(employee => employee.id == this.employeeId).name});
             }
@@ -80,7 +80,6 @@ export class CreateMeetingRecordComponent implements OnInit{
             this.formGroup.patchValue({
                 category: this.updateRecord.category,
                 meetingDate: this.updateRecord.meetingDate,
-                // content: this.updateRecord.content.replace(new RegExp('<br>', 'g'), '\r\n')
                 content: this.updateRecord.content
             });
         }

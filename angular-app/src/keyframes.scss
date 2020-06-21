@@ -64,3 +64,29 @@
 @keyframes delete-anime {
     to{height: 0; opacity: 0;}
 }
+
+@keyframes login-anime-1 {
+    0%,100%{opacity: 0;}
+    35%{opacity: 1; transform: translateX(0) translateY(-30px);}
+    45%,100%{transform: translateX(0) translateY(0)}
+}
+@keyframes login-anime-2 {
+    0%,100%{opacity: 0;}
+    35%,45%{opacity: 1; transform: translateX(0) translateY(-30px);}
+    55%,100%{transform: translateX(0) translateY(0)}
+}
+@keyframes login-anime-3 {
+    0%,100%{opacity: 0;}
+    35%,55%{opacity: 1; transform: translateX(0) translateY(-30px);}
+    65%,100%{transform: translateX(0) translateY(0)}
+}
+@keyframes login-anime-4 {
+    0%,100%{opacity: 0;}
+    35%,65%{opacity: 1; transform: translateX(0) translateY(-30px);}
+    75%,100%{transform: translateX(0) translateY(0)}
+}
+@keyframes login-anime-5 {
+    0%,100%{opacity: 0;}
+    35%,75%{opacity: 1; transform: translateX(0) translateY(-30px);}
+    85%,100%{transform: translateX(0) translateY(0)}
+}

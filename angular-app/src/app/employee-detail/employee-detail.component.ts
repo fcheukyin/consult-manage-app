@@ -58,6 +58,10 @@ export class EmployeeDetailComponent implements OnInit{
   getEmployee(id: number) {
     this.employeeService.getEmployeeById(id).toPromise()
                                             .then(employee => {
+                                              if (!employee) {
+                                                this.router.navigate(['employees']);
+                                                this.messageService.invalidAction();
+                                              }
                                               this.selectedEmployee = new Employee(employee);
                                             });
   }
@@ -81,7 +85,10 @@ export class EmployeeDetailComponent implements OnInit{
                                                     if (records.length != 0){
                                                       this.transfers = records;
                                                     }
-                                                    this.checkLoginUser();
+                                                    if (!this.authService.checkLoginUser(this.selectedEmployee)) {
+                                                      this.router.navigate(['employees']);
+                                                      this.messageService.invalidAction();
+                                                    }
                                                     this.dataReady = !this.dataReady;
                                                   });
   }

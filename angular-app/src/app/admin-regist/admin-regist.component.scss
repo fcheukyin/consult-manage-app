@@ -1,0 +1,37 @@
+@import '~@angular/material/theming';
+@import '../mixin.scss';
+
+table {
+    width: 95%;
+    table-layout: fixed;
+}
+
+mat-paginator {
+    width: 95%;
+}
+
+.table-container {
+    @include info-container;    
+    width: 100% !important;
+}
+
+.header, .footer {
+    height: 60px;
+    font-size: 1.3em;
+    font-weight: 550;
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+}
+.button-area {
+    button {
+        @media (min-width: 601px) {
+            margin: 0 3px;
+        }
+    }
+}
+
+.mat-cell {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }

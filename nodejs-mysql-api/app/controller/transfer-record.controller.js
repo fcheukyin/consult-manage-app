@@ -10,14 +10,14 @@ exports.findAllById = (req, res) => {
             {model: db.reviewers, attributes:[], as: 'newReviewer'},
             {model: db.groups, attributes:[], as: 'oldGroup'},
             {model: db.groups, attributes:[], as: 'newGroup'},
-            {model: db.units, attributes: [], as: 'oldUnit'},
-            {model: db.units, attributes: [], as: 'newUnit'}
+            {model: db.attachments, attributes: [], as: 'oldUnit'},
+            {model: db.attachments, attributes: [], as: 'newUnit'}
         ],
         attributes:{include:[
-            [db.sequelize.col('oldReviewer.firstName'),'oldReviewerFirstName'],
-            [db.sequelize.col('oldReviewer.lastName'),'oldReviewerLastName'],
-            [db.sequelize.col('newReviewer.firstName'),'newReviewerFirstName'],
-            [db.sequelize.col('newReviewer.lastName'),'newReviewerLastName'],
+            [db.sequelize.col('oldReviewer.first_name'),'oldReviewerFirstName'],
+            [db.sequelize.col('oldReviewer.last_name'),'oldReviewerLastName'],
+            [db.sequelize.col('newReviewer.first_name'),'newReviewerFirstName'],
+            [db.sequelize.col('newReviewer.last_name'),'newReviewerLastName'],
             [db.sequelize.col('oldGroup.name'),'oldGroupName'],
             [db.sequelize.col('newGroup.name'),'newGroupName'],
             [db.sequelize.col('oldUnit.name'),'oldUnitName'],

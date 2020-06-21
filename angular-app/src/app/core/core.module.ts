@@ -9,6 +9,8 @@ import { TransferRecordService } from '../shared/service/transfer-record.service
 import { MeetingRecordService } from '../shared/service/meeting-record.service';
 import { ResponsiveService } from '../shared/service/responsive.service';
 import { RouteService } from '../shared/service/route.service';
+import { PositionService } from '../shared/service/position.service';
+import { ReviewerService } from '../shared/service/reviewer.service';
 
 @NgModule({
   declarations: [],
@@ -23,6 +25,8 @@ import { RouteService } from '../shared/service/route.service';
                 MeetingRecordService,
                 ResponsiveService,
                 RouteService,
+                PositionService,
+                ReviewerService,
                 HttpInterceptorProviders
               ],
   exports: []
