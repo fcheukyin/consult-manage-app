@@ -16,10 +16,10 @@ import { AdminRegistComponent } from './admin-regist/admin-regist.component';
 import { AdminUserEditComponent } from './admin-user-edit/admin-user-edit.component';
 
 const routes: Routes = [
-  { path: 'employees', component: EmployeeListComponent, canActivate: [AuthGuard, NormalGuard], data: {title: '社員一覧'}},
+  { path: 'employees', component: EmployeeListComponent, canActivate: [AuthGuard, NormalGuard], data: {title: '社員一覧', animation: 'HomePage'}},
   { path: 'employees/:id', component: EmployeeDetailComponent, canActivate: [AuthGuard, NormalGuard], data: {title: '社員詳細'}},
   { path: 'login', component: LoginComponent, data: {title: 'ログイン'}},
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, NormalGuard], data: {title: 'ダッシュボード'}},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, NormalGuard], data: {title: 'ダッシュボード', animation: 'Page'}},
   { path: 'admin/home', component: AdminMenuComponent, canActivate: [AuthGuard, AdminGuard], data: {title: '管理者ホーム'}},
   { path: 'admin/reviewers', component: AdminReviewerListComponent, canActivate: [AuthGuard, AdminGuard], data: {title: '評価者管理'}},
   { path: 'admin/employees', component: AdminEmployeeListComponent, canActivate: [AuthGuard, AdminGuard], data: {title: '従業員管理'}},

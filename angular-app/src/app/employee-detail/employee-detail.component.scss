@@ -77,6 +77,7 @@ $color-1: #fbb688;
         border-radius: 50%;
         background: rgb(226, 162, 65);
         animation: fadein 300ms linear forwards;
+        z-index: 999;
     }
 
     &.deleted {

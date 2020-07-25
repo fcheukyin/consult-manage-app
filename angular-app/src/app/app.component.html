@@ -9,9 +9,13 @@
       <span>面談共有プロジェクト</span>
     </div>
     <span class="toolbar-spacer"></span>
-    <button mat-button *ngIf="loginUser && adminMode == false" class="mr-2 toolbar-username" (click)="userInfoTrigger()">
+    <button mat-button *ngIf="loginUser && adminMode == false" class="mr-1 toolbar-username" (click)="userInfoTrigger()">
       <span fxShow="true" fxShow.xs="false">{{loginUser.name}}</span>
       <span class="username-wrapper">{{loginUser.name.charAt(0)}}</span>
+    </button>
+    <button mat-icon-button *ngIf="loginUser && adminMode == false"
+    class="mr-2 ripple" (click)="quickActionTrigger()" fxShow="true" fxShow.xs="false">
+      <mat-icon>blur_circular</mat-icon>
     </button>
     <div *ngIf="loginUser" class="d-flex flex-column align-items-center justify-content-center h-100">
       <button mat-icon-button (click)="logout()"><mat-icon>lock_open</mat-icon></button>
@@ -71,8 +75,8 @@
         </button>
       </div>
     </mat-sidenav>
-    <mat-sidenav-content>
-      <div class="container-fluid">
+    <mat-sidenav-content (click)="quickActionOpen = false">
+      <div class="container-fluid pb-2">
         <div class="sub-nav row" *ngIf="pageTitle && loginUser">
           <div class="col d-flex justify-content-between align-items-center">
             <span class="page-name">{{pageTitle}}</span>
@@ -95,8 +99,8 @@
             </div>
           </div>
         </div>
-        <div style="padding-top: 50px;">
-          <router-outlet></router-outlet>
+        <div style="padding-top: 50px;" [@routeAnimations]="prepareRoute(outlet)" >
+          <router-outlet #outlet="outlet"></router-outlet>
         </div>
       </div>
     </mat-sidenav-content>
@@ -132,4 +136,31 @@
   </div>
 </div>
 <div [@userinfoOverlay]="userInfoOpen ? 'show' : 'hide'" *ngIf="userInfoOpen" class="overlay-userinfo" (click)="userInfoTrigger()"></div>
+</div>
+
+<div [@quickAction]="quickActionOpen ? 'open' : 'closed' " class="quick-action">
+  <div class="title big-title color-3">
+    <span>クイックメニュー</span>
+  </div>
+  <div class="action-row" (click)="quickActionOpen = false">
+    <div class="action-1 action" routerLink="/employees">
+      <mat-icon class="action-icon color-3 mb-3">people_alt</mat-icon>
+      <span class="action-name">社員一覧</span>
+    </div>
+    <div class="action-2 action" (click)="showCreateRecord()">
+      <mat-icon class="action-icon color-3 mb-3">post_add</mat-icon>
+      <span class="action-name">新規面談</span>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="action-row" (click)="quickActionOpen = false">
+    <div class="action-3 action">
+      <mat-icon class="action-icon color-3 mb-3">settings</mat-icon>
+      <span class="action-name">設定</span>
+    </div>
+    <div class="action-4 action">
+      <mat-icon class="action-icon color-3 mb-3">add</mat-icon>
+      <span class="action-name">追加</span>
+    </div>
+  </div>
 </div>

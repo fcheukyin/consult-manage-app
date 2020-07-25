@@ -1,3 +1,5 @@
+@import "~@angular/material/theming";
+
 $toolbar-height: 64px;
 $sidenav-width: 64px;
 $toolbar-xs-height: 56px;
@@ -195,4 +197,78 @@ mat-sidenav-content::-webkit-scrollbar {
     width: 100vw;
     background-color: #000000;
     z-index: 99;
+}
+
+.quick-action {
+    position: fixed;
+    top: 80px;
+    right: 50px;
+    width: 300px;
+    height: 300px;
+    background-color: #fff;
+    border-radius: .5em;
+    border: 0.5px solid rgba(0, 0, 0, 0.12);
+    z-index: 99;
+    display: block; 
+    @include mat-elevation(4);
+
+    @media (max-width: 600px) {
+        right: calc(50vw - 150px);
+    }
+
+    .action-row {
+        height: calc((300px - 75px)/2);
+        width: 300px;
+    }
+
+    .action {
+        width: 149px;
+        height: calc((300px - 75px)/2 - 1.5px);
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        outline: none;
+        cursor: pointer;
+        &.action-1, &.action-3 {
+            border-right: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        &.action-3 {
+            border-bottom-left-radius: .5em;
+        }
+        &.action-4 {
+            border-bottom-right-radius: .5em;
+        }
+        .action-icon {
+            transform: scale(1.5);
+        }
+        .action-name {
+            color: #7e8299!important;
+            font-size: 1.2em;
+        }
+
+        &:hover {
+            background: #f3f6f9!important;
+        }
+    }
+}
+
+.title {
+    position: relative;
+    font-size: 1.3em;
+    font-weight: 750;
+    height: 3em;
+    color: #fff;
+    border-top-right-radius: .5em;
+    border-top-left-radius: .5em;
+
+    &.big-title {
+        height: 75px;
+    }
+
+    span {
+        position: absolute;
+        top: .8em;
+        left: .5em;
+    }
 }

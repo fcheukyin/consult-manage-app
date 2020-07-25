@@ -25,10 +25,12 @@ import { AdminRegistComponent } from './admin-regist/admin-regist.component';
 import { AdminEmployeeListComponent } from './admin-employee-list/admin-employee-list.component';
 import { AdminReviewerListComponent } from './admin-reviewer-list/admin-reviewer-list.component';
 import { AdminUserEditComponent } from './admin-user-edit/admin-user-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     CoreModule,
     SharedModule,
     AppRoutingModule,

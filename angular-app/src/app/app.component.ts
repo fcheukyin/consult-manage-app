@@ -3,11 +3,15 @@ import { Location } from '@angular/common';
 import { MatSidenavContent } from '@angular/material/sidenav';
 import { AuthService } from './shared/service/auth.service';
 import { Reviewer } from './shared/reviewer.model';
-import { Router, NavigationEnd, RoutesRecognized } from '@angular/router';
+import { Router, NavigationEnd, RoutesRecognized, RouterOutlet } from '@angular/router';
 import { filter, map, pairwise } from 'rxjs/operators';
 import { RouteService } from './shared/service/route.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Subject } from 'rxjs';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { CreateMeetingRecordComponent } from './create-meeting-record/create-meeting-record.component';
+import { ResponsiveService } from './shared/service/responsive.service';
+import { slideInAnimation } from './shared/animation';
 
 declare var $: any;
 
@@ -20,6 +24,7 @@ export const LG_WIDTH = 992
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   animations: [
+    slideInAnimation,
     trigger('openClose', [
       state('open', style({
         transform: 'translateX(0)'
@@ -28,10 +33,28 @@ export const LG_WIDTH = 992
         transform: 'translateX(100%)'
       })),
       transition('open => closed', [
-        animate('200ms linear')
+        animate('250ms cubic-bezier(0.4, 0.0, 0.2, 1)')
       ]),
       transition('closed => open', [
-        animate('200ms linear')
+        animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ]),
+    ]),
+    trigger('quickAction', [
+      state('open', style({
+        transform: 'translateY(0)',
+        opacity: '1',
+        visibility: 'visible'
+      })),
+      state('closed', style({
+        transform: 'translateY(10px)',
+        opacity: '0',
+        visibility: 'hidden'
+      })),
+      transition('open => closed', [
+        animate('250ms cubic-bezier(0.4, 0.0, 0.2, 1)')
+      ]),
+      transition('closed => open', [
+        animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)')
       ]),
     ]),
     trigger('userinfoOverlay', [
@@ -55,13 +78,14 @@ export class AppComponent implements OnInit{
   sidenavMode = 'side'
   sidenavOpen = true
   userInfoOpen = false
+  quickActionOpen = false
   loginUser: Reviewer
   adminMode: boolean
   pageTitle: String
   previousRoute: String
 
   constructor(private authService: AuthService, private router: Router, private location: Location,
-              private routeService: RouteService) {
+              private routeService: RouteService,private responsiveService: ResponsiveService, private dialog: MatDialog) {
     this.onResize();
     if (this.authService.isLoggedIn) {
       this.loginUser = this.authService.getUserInfo();
@@ -116,6 +140,30 @@ export class AppComponent implements OnInit{
   userInfoTrigger() {
     this.userInfoOpen = !this.userInfoOpen;
   }
+
+  quickActionTrigger() {
+    this.quickActionOpen = !this.quickActionOpen;
+  }
+
+  showCreateRecord() {
+    const config = new MatDialogConfig();
+    config.autoFocus = false;
+    config.width = "500px";
+    if (this.responsiveService.checkScreensize() == "lg") {
+      config.maxHeight = "700px";
+    } else {
+      config.maxHeight = "600px"
+    }
+    config.data = null;
+    config.position = {};
+    config.panelClass = "transfer-dialog-container";
+    this.dialog.open(CreateMeetingRecordComponent, config).afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.router.navigate(['employees/' + result.targetId])
+        }
+      });
+  }
   
   back() {
     console.log(this.location);
@@ -124,5 +172,9 @@ export class AppComponent implements OnInit{
 
   logout() {
     this.authService.logout();
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 }

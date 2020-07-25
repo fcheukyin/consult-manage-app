@@ -69,22 +69,22 @@ export class DashboardComponent implements OnInit{
     }
 
     showCreateRecord() {
-        const config = new MatDialogConfig();
-        config.autoFocus = false;
-        config.width = "500px";
-        if (this.responsiveService.checkScreensize() == "lg") {
-          config.maxHeight = "700px";
-        } else {
-          config.maxHeight = "600px"
-        }
-        config.data = null;
-        config.position = {};
-        config.panelClass = "transfer-dialog-container";
-        this.dialog.open(CreateMeetingRecordComponent, config).afterClosed()
-          .subscribe(result => {
-            if (result) {
-              this.router.navigate(['employees/' + result.targetId])
-            }
-          });
+      const config = new MatDialogConfig();
+      config.autoFocus = false;
+      config.width = "500px";
+      if (this.responsiveService.checkScreensize() == "lg") {
+        config.maxHeight = "700px";
+      } else {
+        config.maxHeight = "600px"
       }
+      config.data = null;
+      config.position = {};
+      config.panelClass = "transfer-dialog-container";
+      this.dialog.open(CreateMeetingRecordComponent, config).afterClosed()
+        .subscribe(result => {
+          if (result) {
+            this.router.navigate(['employees/' + result.targetId])
+          }
+        });
+    }
 }
