@@ -54,8 +54,9 @@ export class DashboardComponent implements OnInit{
             this.getTimestampColor();
             record.forEach(item => {
               this.events.push({
-                title: item.category,
-                start: item.meetingDate.toString()
+                title: item.category + " " + item.employeeName,
+                start: item.meetingDate.toString(),
+                allDay: "true"
               });
             })
             this.dataReady = true

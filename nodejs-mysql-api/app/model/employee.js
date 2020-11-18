@@ -11,11 +11,11 @@ module.exports = (sequelize, Sequelize) => {
       },
       firstnameKana: {
         type: Sequelize.STRING,
-        field: 'first_name_ka'
+        field: 'first_name_kana'
       },
       lastnameKana: {
         type: Sequelize.STRING,
-        field: 'last_name_ka'
+        field: 'last_name_kana'
       },
       route: {
         type: Sequelize.STRING,
